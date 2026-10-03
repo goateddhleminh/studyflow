@@ -479,9 +479,9 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
 .subject-bar{height:8px;border-radius:99px;background:rgba(0,0,0,.4);overflow:hidden}
 .subject-bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,rgba(255,255,255,.7),#fff);transition:width .8s var(--ease)}
 
-.profile-hero{position:relative;overflow:hidden;border-radius:var(--radius-lg);padding:34px 32px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);margin-bottom:20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap}
+.profile-hero{position:relative;overflow:hidden;border-radius:var(--radius-lg);padding:34px 32px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);margin-bottom:20px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;transition:background .4s var(--ease),border-color .4s var(--ease)}
 .profile-avatar{position:relative;width:104px;height:104px;border-radius:50%;background:radial-gradient(circle at 32% 28%, #fff, #d8d8e0 45%, #4a4a55);display:grid;place-items:center;font-size:52px;line-height:1;flex-shrink:0}
-.profile-avatar-ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(255,255,255,.4)}
+.profile-avatar-ring{position:absolute;inset:-6px;border-radius:50%;border:2px solid rgba(255,255,255,.4);transition:all .3s var(--ease)}
 .profile-info{flex:1;min-width:220px}
 .profile-name{font-size:26px;font-weight:700;color:#fff;margin-bottom:5px}
 .profile-title{font-size:13px;color:var(--text-2);font-weight:500;margin-bottom:12px}
@@ -490,7 +490,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
 @media (max-width:640px){.profile-hero-actions{margin-left:0;width:100%}}
 .profile-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:16px;margin-bottom:16px}
 @media (max-width:960px){.profile-grid{grid-template-columns:1fr}}
-.avatar-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(50px,1fr));gap:8px}
+.avatar-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(50px,1fr));gap:8px;max-height:280px;overflow-y:auto;padding-right:4px}
 .avatar-option{aspect-ratio:1;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);cursor:pointer;display:grid;place-items:center;font-size:24px;padding:0;font-family:inherit;color:var(--text)}
 .avatar-option.selected{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.1)}
 .profile-stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
@@ -500,6 +500,38 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
 .profile-stat .val.accent{color:var(--accent)}
 #profileEditFields{display:none}
 #profileEditFields.editing{display:block;animation:fadeUp .35s var(--ease)}
+
+/* ===== Profile Themes ===== */
+.profile-hero[data-ptheme="sunset"]{background:linear-gradient(135deg, rgba(255,140,90,.22), rgba(255,80,140,.08));border-color:rgba(255,140,90,.35)}
+.profile-hero[data-ptheme="ocean"]{background:linear-gradient(135deg, rgba(80,160,255,.22), rgba(40,200,220,.08));border-color:rgba(80,180,255,.35)}
+.profile-hero[data-ptheme="forest"]{background:linear-gradient(135deg, rgba(60,200,120,.20), rgba(40,150,100,.06));border-color:rgba(60,200,120,.32)}
+.profile-hero[data-ptheme="lavender"]{background:linear-gradient(135deg, rgba(170,130,255,.22), rgba(220,120,220,.08));border-color:rgba(180,140,255,.35)}
+.profile-hero[data-ptheme="mono"]{background:linear-gradient(135deg, rgba(255,255,255,.10), rgba(0,0,0,.25));border-color:rgba(255,255,255,.22)}
+
+/* ===== Avatar Border Variants ===== */
+.profile-avatar-ring.ring-glow{border-color:#ffffff;box-shadow:0 0 40px rgba(255,255,255,.6),0 0 80px rgba(255,255,255,.28)}
+.profile-avatar-ring.ring-gold{border-color:#e0bc78;box-shadow:0 0 32px rgba(224,188,120,.55),inset 0 0 18px rgba(224,188,120,.2)}
+.profile-avatar-ring.ring-silver{border-color:#d8d8d8;box-shadow:0 0 28px rgba(216,216,216,.5)}
+.profile-avatar-ring.ring-neon{border-color:var(--accent);box-shadow:0 0 40px var(--accent-glow),inset 0 0 20px var(--accent-soft)}
+.profile-avatar-ring.ring-rainbow{border:3px solid transparent;background:linear-gradient(black,black) padding-box,linear-gradient(135deg,#ff5c7c,#ffb35c,#f5ff5c,#5cff8c,#5cc8ff,#c05cff) border-box;animation:ringSpin 3s linear infinite}
+@keyframes ringSpin{to{filter:hue-rotate(360deg)}}
+.profile-avatar-ring.ring-minimal{border-color:rgba(255,255,255,.18);box-shadow:none;border-width:1px}
+.profile-avatar-ring.ring-double{border-color:rgba(255,255,255,.4);box-shadow:0 0 0 4px rgba(255,255,255,.08),0 0 30px rgba(255,255,255,.25)}
+
+.theme-picker{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
+.theme-swatch{width:54px;height:54px;border-radius:14px;border:2px solid var(--glass-border);cursor:pointer;position:relative;transition:all .2s var(--ease);display:grid;place-items:center;color:#fff;font-weight:800;font-size:16px;font-family:inherit;padding:0}
+.theme-swatch:hover:not(.locked){transform:translateY(-2px);border-color:var(--glass-border-2)}
+.theme-swatch.active{border-color:#fff;box-shadow:0 0 24px rgba(255,255,255,.4)}
+.theme-swatch.owned{border-color:rgba(255,255,255,.3)}
+.theme-swatch.locked{opacity:.35;filter:grayscale(.75);cursor:not-allowed}
+.theme-swatch.locked::after{content:'🔒';font-size:16px;position:absolute}
+
+.border-picker{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.border-chip{padding:8px 14px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid var(--glass-border);color:var(--text-2);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s var(--ease)}
+.border-chip:hover:not(.locked){border-color:var(--glass-border-2);background:rgba(255,255,255,.08);color:#fff}
+.border-chip.active{background:linear-gradient(135deg,#fff,rgba(255,255,255,.85));color:#000;border-color:transparent}
+.border-chip.owned{border-color:rgba(255,255,255,.2);color:var(--text)}
+.border-chip.locked{opacity:.45;cursor:not-allowed}
 
 .modal-backdrop{position:fixed;inset:0;z-index:200;background:rgba(3,3,8,.72);backdrop-filter:blur(18px);display:none;align-items:center;justify-content:center;padding:20px}
 .modal-backdrop.open{display:flex}
@@ -762,7 +794,7 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
             </svg>
             <div class="ring-inner">
               <div class="timer-display" id="timerDisplay">00:00</div>
-              <div class="timer-mode-label">Focus Session</div>
+              <div class="timer-mode-label" id="timerModeLabel">Focus Session</div>
               <div class="timer-cycle" id="timerCycle">Ready to study</div>
             </div>
           </div>
@@ -992,6 +1024,8 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
       <div class="shop-grid" id="companionGrid"></div>
       <div class="shop-section-title">Power-ups &amp; Cosmetics</div>
       <div class="shop-grid" id="shopGrid"></div>
+      <div class="shop-section-title">Profile Themes &amp; Borders</div>
+      <div class="shop-grid" id="profileCosmeticsGrid"></div>
     </section>
 
     <section class="view" id="view-breaks">
@@ -1058,9 +1092,9 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
     </section>
 
     <section class="view" id="view-profile">
-      <div class="profile-hero">
+      <div class="profile-hero" id="profileHero">
         <div class="profile-avatar">
-          <div class="profile-avatar-ring"></div>
+          <div class="profile-avatar-ring" id="profileAvatarRing"></div>
           <span id="profileAvatarDisplay">◉</span>
         </div>
         <div class="profile-info">
@@ -1071,6 +1105,16 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
         <div class="profile-hero-actions">
           <button type="button" class="btn primary" id="openEditProfileBtn">✎ Edit Profile</button>
         </div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <h3 class="card-title"><span class="dot"></span>Profile Theme</h3>
+        <div class="theme-picker" id="profileThemePicker"></div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px">
+        <h3 class="card-title"><span class="dot"></span>Avatar Border</h3>
+        <div class="border-picker" id="profileBorderPicker"></div>
       </div>
 
       <div class="card" style="margin-bottom:16px">
@@ -1227,9 +1271,6 @@ function initSupabase(url, key){
   }catch(e){ supabaseClient = null; return false; }
 }
 
-/* ============================================================
-   DEFAULTS
-============================================================ */
 const DEFAULT_SUBJECTS = ['General'];
 const DEFAULTS = {
   sessions:[], xp:0, coins:0, totalXpEarned:0, coinsEarned:0, bestStreak:0,
@@ -1266,7 +1307,11 @@ const DEFAULTS = {
   gambleMaxPayout: 0,
   gambleWonTriple: false,
   lastMood: 'happy',
-  sadToEnergizedToday: false
+  sadToEnergizedToday: false,
+  profileTheme: 'default',
+  ownedProfileThemes: ['default'],
+  profileBorder: 'default',
+  ownedProfileBorders: ['default','minimal']
 };
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 
@@ -1285,6 +1330,10 @@ function normalizeState(raw){
   m.gambleStats = Object.assign({}, DEFAULTS.gambleStats, m.gambleStats || {});
   m.inProgressTimer = Object.assign({ elapsed:0, sessionXp:0, sessionCoins:0, subject:'General', startedAt:null }, m.inProgressTimer || {});
   m.titles = Array.isArray(m.titles) ? m.titles : [];
+  m.ownedProfileThemes = Array.isArray(m.ownedProfileThemes) && m.ownedProfileThemes.length ? m.ownedProfileThemes : ['default'];
+  if(!m.profileTheme || !m.ownedProfileThemes.includes(m.profileTheme)) m.profileTheme = 'default';
+  m.ownedProfileBorders = Array.isArray(m.ownedProfileBorders) && m.ownedProfileBorders.length ? m.ownedProfileBorders : ['default','minimal'];
+  if(!m.profileBorder || !m.ownedProfileBorders.includes(m.profileBorder)) m.profileBorder = 'default';
   // Migrate old keys if present
   if(m.sicboClientSeed && !m.gambleClientSeed) m.gambleClientSeed = m.sicboClientSeed;
   if(m.sicboNonce && !m.gambleNonce) m.gambleNonce = m.sicboNonce;
@@ -1301,9 +1350,6 @@ function normalizeState(raw){
 
 let state = clone(DEFAULTS);
 
-/* ============================================================
-   CLOUD SYNC
-============================================================ */
 function setSyncDot(mode){
   const dot = document.getElementById('syncDot');
   if(!dot) return;
@@ -1342,7 +1388,7 @@ function saveState(){
 
 window.addEventListener('beforeunload', () => {
   if(currentUser && stateLoadedFromCloud){
-    if(timer.running){
+    if(timer.running && timer.direction === 'up'){
       state.inProgressTimer.elapsed = timer.elapsed;
       state.inProgressTimer.sessionXp = timer.sessionXp;
       state.inProgressTimer.sessionCoins = timer.sessionCoins;
@@ -1359,7 +1405,7 @@ window.addEventListener('beforeunload', () => {
 });
 document.addEventListener('visibilitychange', () => {
   if(document.hidden && currentUser && stateLoadedFromCloud){
-    if(timer.running){
+    if(timer.running && timer.direction === 'up'){
       state.inProgressTimer.elapsed = timer.elapsed;
       state.inProgressTimer.sessionXp = timer.sessionXp;
       state.inProgressTimer.sessionCoins = timer.sessionCoins;
@@ -1371,9 +1417,6 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
-/* ============================================================
-   AUTH
-============================================================ */
 function showAuthGate(){ document.getElementById('authGate').classList.add('open'); }
 function hideAuthGate(){ document.getElementById('authGate').classList.remove('open'); }
 function showLoading(){ document.getElementById('loadingOverlay').classList.add('open'); }
@@ -1428,6 +1471,7 @@ async function onSignedIn(user){
   recoverInProgressSession();
   populateSubjects();
   timer.elapsed = 0; timer.sessionXp = 0; timer.sessionCoins = 0;
+  timer.direction = 'up'; timer.mode = 'focus';
   updateTimerUI();
   drawWheel();
   checkAchievements();
@@ -1523,9 +1567,6 @@ async function bootstrapAuth(){
   showAuthGate();
 }
 
-/* ============================================================
-   HELPERS
-============================================================ */
 function ymd(d){ const x=new Date(d); return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0'); }
 function startOfDay(d){ const x=new Date(d); x.setHours(0,0,0,0); return x; }
 function startOfWeek(d){ const x=startOfDay(d); const off=(x.getDay()+6)%7; x.setDate(x.getDate()-off); return x; }
@@ -1638,11 +1679,8 @@ function weeklyFocusBreakRatioAtLeast5(){
   return totalFocus >= 5 * totalBreakUsed;
 }
 function hasCustomRewards(){ return Object.keys(state.rewardConfig || {}).length > 0; }
-function cosmeticsOwned(){ return (state.ownedThemes.length - 1) + (state.ownedFrames.length - 1); }
+function cosmeticsOwned(){ return (state.ownedThemes.length - 1) + (state.ownedFrames.length - 1) + (state.ownedProfileThemes.length - 1) + (state.ownedProfileBorders.length - 2); }
 
-/* ============================================================
-   ACHIEVEMENTS — 70
-============================================================ */
 const ACHIEVEMENTS = [
   {id:'first_step', icon:'◐', name:'First Step', desc:'Complete your very first 25-minute focus session.', reward:{xp:50, coins:10}, check:()=>state.sessions.some(s=>s.seconds>=1500)},
   {id:'deep_work', icon:'◧', name:'Deep Work Pioneer', desc:'Log a total of 10 cumulative hours of study time.', reward:{xp:200, coins:100}, check:()=>totalFocusSeconds() >= 36000},
@@ -1762,9 +1800,6 @@ function checkAchievements(){
   return unlocked;
 }
 
-/* ============================================================
-   COMPANIONS & SUBJECTS
-============================================================ */
 const COMPANIONS = [
   { id:'orb', icon:'◉', name:'Mystic Orb', desc:'Your first companion. Free forever.', price:0 },
   { id:'fox', icon:'🦊', name:'Clever Fox', desc:'Quick-witted and always alert.', price:250 },
@@ -1829,26 +1864,15 @@ function addSubjectFromModal(){
   toast('✓','Subject added', name); input.focus();
 }
 
-/* ============================================================
-   TIMER — HARDENED
-============================================================ */
 const C = 2 * Math.PI * 108;
 const MINI_C = 2 * Math.PI * 42;
-const timer = {
-  total:25*60,
-  elapsed:0,
-  running:false,
-  intervalId:null,
-  startedAt:null,
-  sessionXp:0,
-  sessionCoins:0,
-  pausedDuringSession:false
-};
+const timer = { total:25*60, elapsed:0, running:false, intervalId:null, startedAt:null, sessionXp:0, sessionCoins:0, pausedDuringSession:false, direction:'up', mode:'focus' };
 
 const el = {
   ringFg: document.getElementById('ringFg'),
   timerDisplay: document.getElementById('timerDisplay'),
   timerCycle: document.getElementById('timerCycle'),
+  timerModeLabel: document.getElementById('timerModeLabel'),
   startBtn: document.getElementById('startBtn'),
   resetLink: document.getElementById('resetLink'),
   subject: document.getElementById('subjectSelect'),
@@ -1863,9 +1887,10 @@ function syncTimerTotal(){ timer.total = Math.max(1, state.settings.focus) * 60;
 
 function updateTimerUI(){
   try{
+    const isBreak = timer.direction === 'down';
     const pct = timer.total > 0 ? Math.min(1, timer.elapsed / timer.total) : 0;
     if(el.ringFg) el.ringFg.style.strokeDashoffset = C * (1 - pct);
-    if(el.ringFg) el.ringFg.style.stroke = '#ffffff';
+    if(el.ringFg) el.ringFg.style.stroke = isBreak ? 'rgba(120,200,255,.9)' : '#ffffff';
     if(el.timerDisplay) el.timerDisplay.textContent = formatClock(timer.elapsed);
 
     if(el.startBtn){
@@ -1881,20 +1906,31 @@ function updateTimerUI(){
         if(label) label.textContent = timer.elapsed > 0 ? 'Resume' : 'Start';
       }
     }
-    if(el.resetLink) el.resetLink.style.display = (timer.elapsed > 0 && !timer.running) ? 'inline-block' : 'none';
-
-    const tokensSoFar = Math.floor(timer.elapsed / 1800);
-    if(el.sessionXpVal) el.sessionXpVal.textContent = '+' + timer.sessionXp;
-    if(el.sessionCoinVal) el.sessionCoinVal.textContent = '+' + timer.sessionCoins;
-    if(el.sessionTokensVal) el.sessionTokensVal.textContent = '+' + tokensSoFar;
-    if(el.sessionLiveStats) el.sessionLiveStats.classList.toggle('active', timer.elapsed > 0);
-
-    if(el.timerCycle){
-      el.timerCycle.textContent = timer.running ? 'Studying…' : (timer.elapsed > 0 ? 'Paused' : 'Ready to study');
+    if(el.resetLink){
+      el.resetLink.style.display = (timer.elapsed > 0 && !timer.running) ? 'inline-block' : 'none';
+      el.resetLink.textContent = isBreak ? '✕ Cancel break' : '↺ Reset session';
     }
-    document.title = timer.running
-      ? formatClock(timer.elapsed) + ' · Focus — StudyFlow'
-      : 'StudyFlow — Liquid Focus';
+    if(el.timerModeLabel){
+      el.timerModeLabel.textContent = isBreak ? 'Break Time' : 'Focus Session';
+    }
+
+    if(isBreak){
+      if(el.sessionLiveStats) el.sessionLiveStats.classList.remove('active');
+      if(el.timerCycle){
+        el.timerCycle.textContent = timer.running ? '☕ Break in progress…' : (timer.elapsed > 0 ? '☕ Break paused' : '☕ Break ready');
+      }
+      document.title = timer.running ? formatClock(timer.elapsed) + ' · Break — StudyFlow' : 'StudyFlow — Liquid Focus';
+    } else {
+      const tokensSoFar = Math.floor(timer.elapsed / 1800);
+      if(el.sessionXpVal) el.sessionXpVal.textContent = '+' + timer.sessionXp;
+      if(el.sessionCoinVal) el.sessionCoinVal.textContent = '+' + timer.sessionCoins;
+      if(el.sessionTokensVal) el.sessionTokensVal.textContent = '+' + tokensSoFar;
+      if(el.sessionLiveStats) el.sessionLiveStats.classList.toggle('active', timer.elapsed > 0);
+      if(el.timerCycle){
+        el.timerCycle.textContent = timer.running ? 'Studying…' : (timer.elapsed > 0 ? 'Paused' : 'Ready to study');
+      }
+      document.title = timer.running ? formatClock(timer.elapsed) + ' · Focus — StudyFlow' : 'StudyFlow — Liquid Focus';
+    }
   }catch(err){
     console.error('[StudyFlow] updateTimerUI error:', err);
   }
@@ -1903,9 +1939,20 @@ function updateTimerUI(){
 function timerTick(){
   if(!timer.running) return;
   try{
+    if(timer.direction === 'down'){
+      timer.elapsed--;
+      if(timer.elapsed <= 0){
+        timer.elapsed = 0;
+        updateTimerUI();
+        breakComplete();
+        return;
+      }
+      updateTimerUI();
+      return;
+    }
+
     timer.elapsed++;
 
-    // 10 XP every 5 minutes = 1 XP every 30 seconds
     if(timer.elapsed % 30 === 0){
       let xpThis = 1;
       if(state.boosterExpiresAt > Date.now()) xpThis *= 2;
@@ -1914,19 +1961,16 @@ function timerTick(){
       timer.sessionXp += xpThis;
     }
 
-    // 1 Coin every 3 minutes
     if(timer.elapsed % 180 === 0){
       state.coins += 1;
       state.coinsEarned = (state.coinsEarned || 0) + 1;
       timer.sessionCoins += 1;
     }
 
-    // Pet buffed time
     if(state.petFedUntil > Date.now()){
       state.petBuffedSeconds = (state.petBuffedSeconds || 0) + 1;
     }
 
-    // Persist in-progress state
     if(state.inProgressTimer){
       state.inProgressTimer.elapsed = timer.elapsed;
       state.inProgressTimer.sessionXp = timer.sessionXp;
@@ -1944,6 +1988,22 @@ function timerTick(){
   }
 }
 
+function breakComplete(){
+  pauseTimer();
+  beep(3);
+  toast('☕','Break finished!', 'Time to get back to studying');
+  timer.direction = 'up';
+  timer.mode = 'focus';
+  timer.elapsed = 0;
+  timer.sessionXp = 0;
+  timer.sessionCoins = 0;
+  timer.total = Math.max(1, state.settings.focus) * 60;
+  state.inProgressTimer = { elapsed:0, sessionXp:0, sessionCoins:0, subject:'General', startedAt:null };
+  saveState();
+  updateTimerUI();
+  renderAll();
+}
+
 function startTimer(){
   if(timer.running) return;
   if(timer.elapsed === 0){
@@ -1954,7 +2014,7 @@ function startTimer(){
   timer.running = true;
   timer.startedAt = Date.now();
 
-  if(state.inProgressTimer && !state.inProgressTimer.startedAt){
+  if(timer.direction === 'up' && state.inProgressTimer && !state.inProgressTimer.startedAt){
     state.inProgressTimer.startedAt = Date.now();
   }
 
@@ -1962,17 +2022,14 @@ function startTimer(){
     try { Notification.requestPermission(); } catch(e){}
   }
 
-  // Clean up any stale interval
   if(timer.intervalId){
     clearInterval(timer.intervalId);
     timer.intervalId = null;
   }
 
-  // Start the interval using the isolated tick function
   timer.intervalId = setInterval(timerTick, 1000);
 
   updateTimerUI();
-  console.log('[StudyFlow] Timer started · elapsed=' + timer.elapsed);
 }
 
 function pauseTimer(){
@@ -1994,6 +2051,26 @@ function toggleTimer(){
 }
 
 function resetTimer(){
+  if(timer.direction === 'down' && timer.mode === 'break'){
+    if(timer.running) pauseTimer();
+    if(timer.elapsed > 0){
+      const refundMin = Math.ceil(timer.elapsed / 60);
+      state.breakMinutes = (state.breakMinutes || 0) + refundMin;
+      state.breakMinutesUsed = Math.max(0, (state.breakMinutesUsed||0) - refundMin);
+      saveState();
+      toast('↺','Break cancelled', refundMin + ' minute' + (refundMin>1?'s':'') + ' refunded');
+    }
+    timer.direction = 'up';
+    timer.mode = 'focus';
+    timer.elapsed = 0;
+    timer.total = Math.max(1, state.settings.focus) * 60;
+    timer.sessionXp = 0;
+    timer.sessionCoins = 0;
+    updateTimerUI();
+    renderAll();
+    return;
+  }
+
   const elapsedAtReset = timer.elapsed;
   const pausedFlag = timer.pausedDuringSession;
   pauseTimer();
@@ -2050,9 +2127,6 @@ function availableSpinTokens(){
 }
 function totalTokensEarned(){ return Math.floor(totalFocusSeconds() / 1800); }
 
-/* ============================================================
-   SOUND
-============================================================ */
 let audioCtx = null;
 function ensureAudio(){ try{ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==='suspended') audioCtx.resume(); }catch(e){} }
 function beep(times){ if(!state.settings.sound) return; try{ ensureAudio(); const now = audioCtx.currentTime; for(let i=0;i<times;i++){ const osc = audioCtx.createOscillator(), gain = audioCtx.createGain(); osc.connect(gain); gain.connect(audioCtx.destination); osc.type='sine'; const t = now + i*0.32; osc.frequency.setValueAtTime(760,t); osc.frequency.exponentialRampToValueAtTime(1180,t+0.11); gain.gain.setValueAtTime(0.0001,t); gain.gain.exponentialRampToValueAtTime(0.24,t+0.02); gain.gain.exponentialRampToValueAtTime(0.0001,t+0.28); osc.start(t); osc.stop(t+0.3); } }catch(e){} }
@@ -2136,14 +2210,22 @@ const SHOP_ITEMS = [
   { id:'theme_cyberpunk', icon:'◈', name:'Lavender Theme', desc:'Soft lavender-white accents.', price:300, type:'theme', value:'cyberpunk' },
   { id:'theme_forest', icon:'❦', name:'Mint Theme', desc:'Calm mint-white accents on true black.', price:300, type:'theme', value:'forest' },
   { id:'theme_arcade', icon:'▣', name:'Warm Theme', desc:'Warm amber-white accents.', price:300, type:'theme', value:'arcade' },
-  { id:'frame_gold', icon:'◆', name:'Gold Avatar Frame', desc:'A gilded ring around your companion.', price:200, type:'frame', value:'gold' },
-  { id:'frame_silver', icon:'◇', name:'Silver Avatar Frame', desc:'A sleek polished silver ring.', price:200, type:'frame', value:'silver' },
-  { id:'frame_neon', icon:'✦', name:'Neon Avatar Frame', desc:'A glowing accent-colored ring.', price:200, type:'frame', value:'neon' }
+  { id:'frame_gold', icon:'◆', name:'Gold Pet Frame', desc:'A gilded ring around your companion.', price:200, type:'frame', value:'gold' },
+  { id:'frame_silver', icon:'◇', name:'Silver Pet Frame', desc:'A sleek polished silver ring.', price:200, type:'frame', value:'silver' },
+  { id:'frame_neon', icon:'✦', name:'Neon Pet Frame', desc:'A glowing accent-colored ring.', price:200, type:'frame', value:'neon' },
+  { id:'ptheme_sunset', icon:'🌅', name:'Sunset Profile', desc:'Warm orange and pink profile gradient.', price:250, type:'profile_theme', value:'sunset' },
+  { id:'ptheme_ocean', icon:'🌊', name:'Ocean Profile', desc:'Deep blue and cyan profile gradient.', price:250, type:'profile_theme', value:'ocean' },
+  { id:'ptheme_forest', icon:'🌲', name:'Forest Profile', desc:'Fresh green profile gradient.', price:250, type:'profile_theme', value:'forest' },
+  { id:'ptheme_lavender', icon:'💜', name:'Lavender Profile', desc:'Soft purple and pink profile gradient.', price:250, type:'profile_theme', value:'lavender' },
+  { id:'ptheme_mono', icon:'◐', name:'Mono Profile', desc:'Pure black and white contrast.', price:250, type:'profile_theme', value:'mono' },
+  { id:'pborder_glow', icon:'✦', name:'Glow Border', desc:'A bright white glowing ring.', price:150, type:'profile_border', value:'glow' },
+  { id:'pborder_gold', icon:'◆', name:'Gold Border', desc:'A golden luxury ring.', price:200, type:'profile_border', value:'gold' },
+  { id:'pborder_silver', icon:'◇', name:'Silver Border', desc:'A polished silver ring.', price:180, type:'profile_border', value:'silver' },
+  { id:'pborder_neon', icon:'✺', name:'Neon Border', desc:'A glowing accent ring.', price:220, type:'profile_border', value:'neon' },
+  { id:'pborder_rainbow', icon:'🌈', name:'Rainbow Border', desc:'An animated rainbow halo.', price:500, type:'profile_border', value:'rainbow' },
+  { id:'pborder_double', icon:'◎', name:'Double Border', desc:'A layered double ring.', price:200, type:'profile_border', value:'double' }
 ];
 
-/* ============================================================
-   GAMBLE — English-only, manual roll
-============================================================ */
 const DICE_FACES = ['⚀','⚁','⚂','⚃','⚄','⚅'];
 const gamble = { currency:'coins', currentBet:null, rolling:false };
 
@@ -2207,11 +2289,8 @@ async function rollDice(serverSeed, clientSeed, nonce){
 
 function updateBetSlip(){
   const slip = document.getElementById('betSlip');
-  if(!sicbo_currentBet){
-    slip.classList.remove('visible');
-    return;
-  }
-  const b = sicbo_currentBet;
+  if(!gamble.currentBet){ slip.classList.remove('visible'); return; }
+  const b = gamble.currentBet;
   const icons = { coins:'🪙', tokens:'🎡', breaks:'⏱' };
   const unit = b.currency === 'breaks' ? 'min' : b.currency;
   const names = { over:'Over', under:'Under', even:'Even', odd:'Odd', triple:'Any Triple' };
@@ -2219,10 +2298,6 @@ function updateBetSlip(){
   document.getElementById('betSlipAmount').textContent = icons[b.currency] + ' ' + b.amount + ' ' + unit;
   slip.classList.add('visible');
 }
-
-// Alias for backwards compat
-function getCurrentBet(){ return gamble.currentBet; }
-Object.defineProperty(window, 'sicbo_currentBet', { get: () => gamble.currentBet });
 
 function clearBetZones(){ document.querySelectorAll('.bet-zone').forEach(z => z.classList.remove('active')); }
 
@@ -2441,9 +2516,6 @@ function renderGambleHistory(){
   }).join('');
 }
 
-/* ============================================================
-   WHEEL
-============================================================ */
 const REWARD_TYPES = {
   break10:{label:'+10 Mins Break Time',short:'10m',icon:'⏱',rarity:'common',type:'break',value:10,color:'#121215',textColor:'#9a9aa8'},
   break5:{label:'+5 Mins Break Time',short:'5m',icon:'⏱',rarity:'uncommon',type:'break',value:5,color:'#1e1e24',textColor:'#c4c4cf'},
@@ -2583,17 +2655,36 @@ function useBreakTime(minutes){
   const avail = state.breakMinutes || 0;
   if(avail <= 0){ toast('⏱','No break time','Win break time on the wheel.'); return; }
   const actual = Math.min(minutes, avail);
+
+  if(timer.running && timer.direction === 'up'){
+    if(!confirm('A focus session is running. Start a break and pause the session?')) return;
+    pauseTimer();
+  }
+
   state.breakMinutes -= actual;
   state.breakMinutesUsed = (state.breakMinutesUsed||0) + actual;
   state.breakSessions = (state.breakSessions||0) + 1;
-  saveState(); pauseTimer();
+  saveState();
+
   document.querySelector('.dock-btn[data-view="timer"]').click();
-  timer.elapsed = 0; timer.sessionXp = 0; timer.sessionCoins = 0;
+
+  timer.direction = 'down';
+  timer.mode = 'break';
+  timer.total = actual * 60;
+  timer.elapsed = actual * 60;
+  timer.sessionXp = 0;
+  timer.sessionCoins = 0;
+  timer.pausedDuringSession = false;
+
   state.inProgressTimer = { elapsed: 0, sessionXp: 0, sessionCoins: 0, subject: 'General', startedAt: null };
+  saveState();
+
   updateTimerUI();
   document.getElementById('inventoryBackdrop').classList.remove('open');
-  renderAll(); toast('⏱','Break started', actual+' minute break');
+  renderAll();
+  toast('☕','Break started', actual + ' minute break — relax!');
   checkAchievements();
+
   setTimeout(startTimer, 400);
 }
 function renderCustomizeModal(){
@@ -2616,9 +2707,6 @@ function saveCustomize(){
   toast('✎','Rewards customized','');
 }
 
-/* ============================================================
-   THEME / COMPANION / SHOP
-============================================================ */
 function applyTheme(theme){ document.documentElement.setAttribute('data-theme', theme||'default'); setTimeout(drawWheel,20); }
 applyTheme(state.currentTheme);
 
@@ -2685,7 +2773,7 @@ function buyCompanion(id){
 function renderShop(){
   document.getElementById('shopCoins').textContent = state.coins;
   const grid = document.getElementById('shopGrid');
-  grid.innerHTML = SHOP_ITEMS.map(item=>{
+  grid.innerHTML = SHOP_ITEMS.filter(i => i.type !== 'profile_theme' && i.type !== 'profile_border').map(item=>{
     let stateCls='', btnHtml='', own='';
     if(item.type==='consumable'){
       if(item.id==='freeze'){ own = state.freezeCards+'/3'; const maxed = state.freezeCards>=3, canAfford = state.coins>=item.price; btnHtml = maxed ? '<button type="button" class="btn soft shop-btn" disabled>Max owned</button>' : '<button type="button" class="btn accent shop-btn" data-buy="'+item.id+'" '+(canAfford?'':'disabled')+'>Buy</button>'; }
@@ -2706,6 +2794,31 @@ function renderShop(){
   grid.querySelectorAll('[data-buy]').forEach(btn=>btn.addEventListener('click',()=>buyItem(btn.dataset.buy)));
   grid.querySelectorAll('[data-equip-theme]').forEach(btn=>btn.addEventListener('click',()=>{ state.currentTheme = btn.dataset.equipTheme; saveState(); applyTheme(state.currentTheme); toast('◈','Theme equipped', ''); renderAll(); checkAchievements(); }));
   grid.querySelectorAll('[data-equip-frame]').forEach(btn=>btn.addEventListener('click',()=>{ state.currentFrame = btn.dataset.equipFrame; saveState(); toast('✦','Frame updated',''); renderAll(); checkAchievements(); }));
+
+  // Render profile cosmetics
+  const pGrid = document.getElementById('profileCosmeticsGrid');
+  if(pGrid){
+    pGrid.innerHTML = SHOP_ITEMS.filter(i => i.type === 'profile_theme' || i.type === 'profile_border').map(item => {
+      let cls = '', btnHtml = '', own = '';
+      if(item.type === 'profile_theme'){
+        const owned = (state.ownedProfileThemes||['default']).includes(item.value);
+        const equipped = state.profileTheme === item.value;
+        if(equipped){ cls='equipped'; own='Equipped'; btnHtml='<button type="button" class="btn soft shop-btn" disabled>Active</button>'; }
+        else if(owned){ cls='owned'; own='Owned'; btnHtml='<button type="button" class="btn soft shop-btn" data-equip-ptheme="'+item.value+'">Equip</button>'; }
+        else { const canAfford = state.coins >= item.price; btnHtml='<button type="button" class="btn accent shop-btn" data-buy="'+item.id+'" '+(canAfford?'':'disabled')+'>Buy</button>'; }
+      } else {
+        const owned = (state.ownedProfileBorders||['default']).includes(item.value);
+        const equipped = state.profileBorder === item.value;
+        if(equipped){ cls='equipped'; own='Equipped'; btnHtml='<button type="button" class="btn soft shop-btn" disabled>Active</button>'; }
+        else if(owned){ cls='owned'; own='Owned'; btnHtml='<button type="button" class="btn soft shop-btn" data-equip-pborder="'+item.value+'">Equip</button>'; }
+        else { const canAfford = state.coins >= item.price; btnHtml='<button type="button" class="btn accent shop-btn" data-buy="'+item.id+'" '+(canAfford?'':'disabled')+'>Buy</button>'; }
+      }
+      return '<div class="shop-item '+cls+'"><div class="shop-icon">'+item.icon+'</div><div class="shop-name">'+item.name+'</div><div class="shop-desc">'+item.desc+'</div><div class="shop-footer"><div><span class="shop-price"><span class="ico">🪙</span>'+item.price+'</span> '+(own?'<span class="shop-own">· '+own+'</span>':'')+'</div>'+btnHtml+'</div></div>';
+    }).join('');
+    pGrid.querySelectorAll('[data-buy]').forEach(btn => btn.addEventListener('click', () => buyItem(btn.dataset.buy)));
+    pGrid.querySelectorAll('[data-equip-ptheme]').forEach(btn => btn.addEventListener('click', () => { state.profileTheme = btn.dataset.equipPtheme; saveState(); renderProfile(); renderShop(); toast('◈','Profile theme equipped',''); }));
+    pGrid.querySelectorAll('[data-equip-pborder]').forEach(btn => btn.addEventListener('click', () => { state.profileBorder = btn.dataset.equipPborder; saveState(); renderProfile(); renderShop(); toast('✦','Border equipped',''); }));
+  }
 }
 function buyItem(id){
   const item = SHOP_ITEMS.find(i=>i.id===id); if(!item) return;
@@ -2713,18 +2826,19 @@ function buyItem(id){
   if(item.id==='booster' && state.boosterExpiresAt>Date.now()){ toast('⚡','Already active',''); return; }
   if(item.type==='theme' && state.ownedThemes.includes(item.value)) return;
   if(item.type==='frame' && state.ownedFrames.includes(item.value)) return;
+  if(item.type==='profile_theme' && state.ownedProfileThemes.includes(item.value)) return;
+  if(item.type==='profile_border' && state.ownedProfileBorders.includes(item.value)) return;
   if(!spendCoins(item.price)){ toast('🪙','Not enough coins','You need '+item.price+' coins.'); return; }
   state.shopPurchases = (state.shopPurchases || 0) + 1;
   if(item.id==='freeze'){ state.freezeCards = Math.min(3,state.freezeCards+1); toast('❄','Streak Freeze added','Inventory: '+state.freezeCards+'/3'); }
   else if(item.id==='booster'){ state.boosterExpiresAt = Date.now()+24*3600*1000; toast('⚡','XP Booster active','2× XP for 24 hours'); }
   else if(item.type==='theme'){ state.ownedThemes.push(item.value); state.currentTheme = item.value; applyTheme(item.value); toast('◈','Theme unlocked', item.name); }
   else if(item.type==='frame'){ state.ownedFrames.push(item.value); state.currentFrame = item.value; toast('✦','Frame unlocked', item.name); }
+  else if(item.type==='profile_theme'){ state.ownedProfileThemes.push(item.value); state.profileTheme = item.value; toast('◈','Profile theme unlocked & equipped', item.name); }
+  else if(item.type==='profile_border'){ state.ownedProfileBorders.push(item.value); state.profileBorder = item.value; toast('✦','Border unlocked & equipped', item.name); }
   saveState(); renderAll(); checkAchievements();
 }
 
-/* ============================================================
-   BREAKS
-============================================================ */
 function renderBreaks(){
   const avail = state.breakMinutes || 0;
   const total = state.breakEarnedTotal || 0;
@@ -2760,10 +2874,32 @@ function renderBreaks(){
   }
 }
 
-/* ============================================================
-   PROFILE
-============================================================ */
-const AVATAR_OPTIONS = ['◉','★','✦','◈','◐','☯','♛','⚡','✧','✺','☾','♦','▲','●','◆','✿'];
+const AVATAR_OPTIONS = [
+  '◉','★','✦','◈','◐','☯','♛','⚡','✧','✺','☾','♦','▲','●','◆','✿',
+  '🚀','🌟','💎','🎯','🔥','🌙','☀','🌈','🎨','🎭','🦄','🐉','🦋','🍀','🏆','⚔',
+  '🦊','🦉','🐺','🐯','🐲','🦅','🦁','🐼'
+];
+
+const PROFILE_THEMES = {
+  default:  { name: 'Glass',    swatch: 'linear-gradient(135deg, rgba(255,255,255,.18), rgba(255,255,255,.04))' },
+  sunset:   { name: 'Sunset',   swatch: 'linear-gradient(135deg, #ff8c5a, #ff508c)' },
+  ocean:    { name: 'Ocean',    swatch: 'linear-gradient(135deg, #50a0ff, #28c8dc)' },
+  forest:   { name: 'Forest',   swatch: 'linear-gradient(135deg, #3cc878, #289664)' },
+  lavender: { name: 'Lavender', swatch: 'linear-gradient(135deg, #aa82ff, #dc78dc)' },
+  mono:     { name: 'Mono',     swatch: 'linear-gradient(135deg, #ffffff, #000000)' }
+};
+
+const PROFILE_BORDERS = {
+  default:  { name: 'Default',  desc: 'Classic ring' },
+  minimal:  { name: 'Minimal',  desc: 'Thin gray ring' },
+  glow:     { name: 'Glow',     desc: 'Bright white halo' },
+  gold:     { name: 'Gold',     desc: 'Luxury gold' },
+  silver:   { name: 'Silver',   desc: 'Polished silver' },
+  neon:     { name: 'Neon',     desc: 'Accent-colored glow' },
+  rainbow:  { name: 'Rainbow',  desc: 'Animated rainbow' },
+  double:   { name: 'Double',   desc: 'Layered double ring' }
+};
+
 function renderProfile(){
   const p = state.profile || DEFAULTS.profile;
   document.getElementById('profileAvatarDisplay').textContent = p.avatar || '◉';
@@ -2781,9 +2917,73 @@ function renderProfile(){
   document.getElementById('profileHours').textContent = (totalH>=10?Math.round(totalH):totalH.toFixed(1))+'h';
   document.getElementById('profileSessions').textContent = state.sessions.length;
   document.getElementById('profileAch').textContent = Object.keys(state.achievements).length + '/' + ACHIEVEMENTS.length;
+
   const picker = document.getElementById('avatarPicker');
   picker.innerHTML = AVATAR_OPTIONS.map(a => '<button type="button" class="avatar-option '+(a===p.avatar?'selected':'')+'" data-av="'+a+'">'+a+'</button>').join('');
   picker.querySelectorAll('[data-av]').forEach(btn => btn.addEventListener('click', () => { state.profile.avatar = btn.dataset.av; saveState(); renderProfile(); updateAuthUI(); toast('✓','Avatar updated',''); }));
+
+  // Apply profile theme
+  const hero = document.getElementById('profileHero');
+  if(hero) hero.setAttribute('data-ptheme', state.profileTheme || 'default');
+
+  // Apply border
+  const ring = document.getElementById('profileAvatarRing');
+  if(ring){
+    ring.className = 'profile-avatar-ring';
+    if(state.profileBorder && state.profileBorder !== 'default'){
+      ring.classList.add('ring-' + state.profileBorder);
+    }
+  }
+
+  // Theme picker
+  const themePicker = document.getElementById('profileThemePicker');
+  if(themePicker){
+    themePicker.innerHTML = Object.entries(PROFILE_THEMES).map(([key, t]) => {
+      const owned = (state.ownedProfileThemes || ['default']).includes(key);
+      const active = state.profileTheme === key;
+      const cls = active ? 'theme-swatch active' : (owned ? 'theme-swatch owned' : 'theme-swatch locked');
+      return '<button type="button" class="' + cls + '" data-ptheme="' + key + '" style="background: ' + t.swatch + ';" title="' + t.name + '">' + (active ? '✓' : '') + '</button>';
+    }).join('');
+    themePicker.querySelectorAll('[data-ptheme]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.ptheme;
+        if(!(state.ownedProfileThemes || ['default']).includes(key)){
+          toast('🔒','Theme locked','Purchase it in the Shop first.');
+          return;
+        }
+        state.profileTheme = key;
+        saveState();
+        renderProfile();
+        toast('◈','Profile theme applied', PROFILE_THEMES[key].name);
+      });
+    });
+  }
+
+  // Border picker
+  const borderPicker = document.getElementById('profileBorderPicker');
+  if(borderPicker){
+    const allBorders = Object.keys(PROFILE_BORDERS);
+    borderPicker.innerHTML = allBorders.map(key => {
+      const owned = (state.ownedProfileBorders || ['default']).includes(key);
+      const active = state.profileBorder === key;
+      const label = PROFILE_BORDERS[key].name;
+      const cls = active ? 'border-chip active' : (owned ? 'border-chip owned' : 'border-chip locked');
+      return '<button type="button" class="' + cls + '" data-pborder="' + key + '">' + label + (active ? ' ✓' : '') + '</button>';
+    }).join('');
+    borderPicker.querySelectorAll('[data-pborder]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.pborder;
+        if(!(state.ownedProfileBorders || ['default']).includes(key)){
+          toast('🔒','Border locked','Purchase it in the Shop first.');
+          return;
+        }
+        state.profileBorder = key;
+        saveState();
+        renderProfile();
+        toast('✦','Border applied', PROFILE_BORDERS[key].name);
+      });
+    });
+  }
 }
 function openProfileEditor(){
   const p = state.profile || DEFAULTS.profile;
@@ -2831,9 +3031,6 @@ function handleGoalSave(){
   setTimeout(() => { btn.classList.remove('saved'); btn.textContent = '💾 Save Goal'; }, 1800);
 }
 
-/* ============================================================
-   RENDER
-============================================================ */
 function renderTopbar(){
   const info = levelInfo(state.xp);
   document.getElementById('topLevel').textContent = info.level;
@@ -2976,7 +3173,6 @@ function renderAll(){
   updateAuthUI();
 }
 
-/* NAV */
 const PAGE_META = {
   dashboard:{title:'Dashboard', sub:"Welcome back — let's get focused."},
   timer:{title:'Focus Timer', sub:'Deep work, one session at a time.'},
@@ -3092,6 +3288,7 @@ document.getElementById('resetDataBtn').addEventListener('click',()=>{
   state = normalizeState({});
   applyTheme('default');
   pauseTimer(); timer.elapsed = 0; timer.sessionXp = 0; timer.sessionCoins = 0;
+  timer.direction = 'up'; timer.mode = 'focus';
   populateSubjects();
   syncTimerTotal(); updateTimerUI();
   backdrop.classList.remove('open'); renderAll();
@@ -3123,7 +3320,7 @@ document.getElementById('accountSyncBtn').addEventListener('click', async ()=>{
   let resizeT;
   window.addEventListener('resize', ()=>{ clearTimeout(resizeT); resizeT = setTimeout(drawWheel, 200); });
   setInterval(()=>{ if(!document.hidden && !timer.running && currentUser) renderAll(); }, 60000);
-  console.log('%c◉ StudyFlow · Gamble ready · 70 achievements loaded', 'color:#fff;font-weight:bold;font-size:14px');
+  console.log('%c◉ StudyFlow · Break timer + Profile cosmetics ready', 'color:#fff;font-weight:bold;font-size:14px');
 })();
 </script>
 </body>
