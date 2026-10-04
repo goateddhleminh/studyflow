@@ -591,6 +591,50 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
 .toast-title{font-weight:600;font-size:13px;color:#fff}
 .toast-sub{font-size:11.5px;color:var(--text-3);font-weight:500;margin-top:2px}
 
+/* ===== Focus Mode (immersive) ===== */
+.focus-overlay{position:fixed;inset:0;z-index:450;display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .4s var(--ease)}
+.focus-overlay.open{display:flex;opacity:1}
+.focus-backdrop{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(28,28,45,.98) 0%,rgba(4,4,8,.995) 70%);backdrop-filter:blur(30px)}
+.focus-backdrop::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(90,70,160,.18),transparent 55%),radial-gradient(circle at 70% 75%,rgba(60,80,150,.14),transparent 55%);animation:focusPulse 12s ease-in-out infinite}
+@keyframes focusPulse{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+.focus-content{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:32px;max-width:600px;width:100%;animation:focusIn .5s var(--ease)}
+@keyframes focusIn{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.focus-subject{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);padding:10px 22px;border-radius:99px;background:rgba(255,255,255,.04);border:1px solid var(--glass-border);display:inline-flex;align-items:center;gap:9px}
+.focus-subject .fs-dot{width:7px;height:7px;border-radius:50%;background:#5cd68a;box-shadow:0 0 10px #5cd68a;animation:pulseDot 1.6s infinite}
+.focus-overlay.paused .focus-subject .fs-dot{background:#facc15;box-shadow:0 0 10px #facc15}
+.focus-ring-wrap{position:relative;display:grid;place-items:center;width:min(340px,78vw);height:min(340px,78vw)}
+.focus-ring{width:100%;height:100%;transform:rotate(-90deg)}
+.focus-ring circle{fill:none;stroke-width:10;stroke-linecap:round}
+.focus-ring-bg{stroke:rgba(255,255,255,.06)}
+.focus-ring-fg{stroke:#fff;transition:stroke-dashoffset .35s linear;filter:drop-shadow(0 0 14px rgba(255,255,255,.35))}
+.focus-overlay.paused .focus-ring-fg{stroke:rgba(255,255,255,.4);filter:none}
+.focus-timer-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.focus-timer{font-family:var(--mono);font-size:clamp(52px,13vw,84px);font-weight:600;color:#fff;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;transition:opacity .3s}
+.focus-overlay.paused .focus-timer{opacity:.5}
+.focus-timer-label{font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--text-3)}
+.focus-overlay.paused .focus-timer-label{color:#facc15}
+.focus-goal{width:100%;max-width:460px;padding:20px 22px;border-radius:20px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);display:flex;flex-direction:column;gap:12px}
+.focus-goal-head{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;color:var(--text-3);letter-spacing:.1em;text-transform:uppercase}
+.focus-goal-head .fgp{color:#fff;font-size:16px;font-weight:700;letter-spacing:0}
+.focus-goal-bar{height:6px;border-radius:99px;background:rgba(0,0,0,.5);overflow:hidden;border:1px solid rgba(255,255,255,.05)}
+.focus-goal-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,rgba(255,255,255,.6),#fff);transition:width .6s var(--ease);border-radius:99px}
+.focus-goal-txt{font-size:12.5px;color:var(--text-2);font-weight:500;text-align:center;font-variant-numeric:tabular-nums}
+.focus-actions{display:flex;flex-direction:column;align-items:center;gap:12px;width:100%;max-width:460px}
+.focus-end-btn{width:100%;padding:20px;border-radius:99px;border:none;background:linear-gradient(135deg,#fff,rgba(255,255,255,.85));color:#000;font-family:inherit;font-size:15px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:all .25s var(--ease);display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 12px 40px rgba(255,255,255,.14)}
+.focus-end-btn:hover{transform:translateY(-2px);box-shadow:0 18px 52px rgba(255,255,255,.22)}
+.focus-pause-btn{padding:10px 22px;border-radius:99px;background:transparent;border:1px solid var(--glass-border);color:var(--text-3);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s var(--ease)}
+.focus-pause-btn:hover{color:#fff;border-color:var(--glass-border-2);background:rgba(255,255,255,.04)}
+
+/* Session summary modal */
+.session-summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
+.session-summary-item{padding:16px 8px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border)}
+.session-summary-item .ssi-icon{font-size:18px;display:block;margin-bottom:8px}
+.session-summary-item .ssi-lbl{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px}
+.session-summary-item .ssi-val{font-size:20px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.session-summary-item.coins .ssi-val{color:#f5c84a}
+.session-summary-item.tokens .ssi-val{color:#c4b5fd}
+.session-summary-time{font-family:var(--mono);font-size:30px;font-weight:700;color:#fff;margin:6px 0 0;font-variant-numeric:tabular-nums}
+
 @media (max-width:900px){
   .app{padding-top:100px}
   .dock{top:14px;padding:6px;border-radius:20px}
@@ -614,6 +658,8 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
   .breaks-jar-num{font-size:34px}
   .breaks-hero-title{font-size:26px}
   .user-chip-email{display:none}
+  .focus-content{gap:24px}
+  .focus-goal{padding:16px 18px}
 }
 @media (max-width:520px){
   .field-row{grid-template-columns:1fr}
@@ -799,9 +845,9 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
             </div>
           </div>
           <div class="timer-controls">
-            <button type="button" class="btn-start-timer" id="startBtn" aria-label="Start timer">
+            <button type="button" class="btn-start-timer" id="startBtn" aria-label="Start session">
               <span class="btn-start-icon">▶</span>
-              <span class="btn-start-label">Start</span>
+              <span class="btn-start-label">Start Session</span>
             </button>
             <button type="button" class="reset-link" id="resetLink" style="display:none" title="Reset session">↺ Reset session</button>
           </div>
@@ -1241,6 +1287,49 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
   </div>
 </div>
 
+<!-- IMMERSIVE FOCUS MODE -->
+<div id="focusOverlay" class="focus-overlay" aria-hidden="true">
+  <div class="focus-backdrop"></div>
+  <div class="focus-content">
+    <div class="focus-subject"><span class="fs-dot"></span><span id="focusSubject">General</span></div>
+    <div class="focus-ring-wrap">
+      <svg class="focus-ring" viewBox="0 0 300 300">
+        <circle class="focus-ring-bg" cx="150" cy="150" r="135"/>
+        <circle class="focus-ring-fg" id="focusRingFg" cx="150" cy="150" r="135"/>
+      </svg>
+      <div class="focus-timer-inner">
+        <div class="focus-timer" id="focusTimer">00:00</div>
+        <div class="focus-timer-label" id="focusTimerLabel">Focus Session</div>
+      </div>
+    </div>
+    <div class="focus-goal">
+      <div class="focus-goal-head"><span>Daily Goal Progress</span><span class="fgp" id="focusGoalPct">0%</span></div>
+      <div class="focus-goal-bar"><i id="focusGoalBar"></i></div>
+      <div class="focus-goal-txt" id="focusGoalTxt">0m of 120m today</div>
+    </div>
+    <div class="focus-actions">
+      <button type="button" class="focus-end-btn" id="focusEndBtn">End Session</button>
+      <button type="button" class="focus-pause-btn" id="focusPauseBtn">⏸ Pause</button>
+    </div>
+  </div>
+</div>
+
+<!-- SESSION REWARD SUMMARY -->
+<div class="modal-backdrop" id="sessionSummaryBackdrop">
+  <div class="modal reward-modal" id="sessionSummaryModal" style="max-width:420px">
+    <div class="reward-pop-icon" style="margin-bottom:18px">✦</div>
+    <div style="font-size:22px;font-weight:600;color:#fff;margin-bottom:6px">Session Complete</div>
+    <div style="font-size:12.5px;color:var(--text-3);text-transform:uppercase;letter-spacing:.1em;font-weight:600" id="sessionSummarySubject">General</div>
+    <div class="session-summary-time" id="sessionSummaryTime">0m</div>
+    <div class="session-summary-grid">
+      <div class="session-summary-item xp"><span class="ssi-icon">✦</span><div class="ssi-lbl">XP</div><div class="ssi-val" id="summaryXp">+0</div></div>
+      <div class="session-summary-item coins"><span class="ssi-icon">🪙</span><div class="ssi-lbl">Coins</div><div class="ssi-val" id="summaryCoins">+0</div></div>
+      <div class="session-summary-item tokens"><span class="ssi-icon">🎡</span><div class="ssi-lbl">Tokens</div><div class="ssi-val" id="summaryTokens">+0</div></div>
+    </div>
+    <button type="button" class="btn primary" id="sessionSummaryClose" style="width:100%;margin-top:22px;justify-content:center;padding:13px">Continue</button>
+  </div>
+</div>
+
 <div class="toast-wrap" id="toastWrap"></div>
 
 <script>
@@ -1349,6 +1438,8 @@ function normalizeState(raw){
 }
 
 let state = clone(DEFAULTS);
+let focusModeActive = false;
+let toastQueue = [];
 
 function setSyncDot(mode){
   const dot = document.getElementById('syncDot');
@@ -1896,14 +1987,13 @@ function updateTimerUI(){
     if(el.startBtn){
       const icon = el.startBtn.querySelector('.btn-start-icon');
       const label = el.startBtn.querySelector('.btn-start-label');
-      if(timer.running){
-        el.startBtn.classList.add('running');
-        if(icon) icon.textContent = '❚❚';
-        if(label) label.textContent = 'Pause';
+      if(timer.direction === 'down'){
+        if(timer.running){ el.startBtn.classList.add('running'); if(icon) icon.textContent='❚❚'; if(label) label.textContent='Pause Break'; }
+        else { el.startBtn.classList.remove('running'); if(icon) icon.textContent='▶'; if(label) label.textContent = timer.elapsed>0?'Resume Break':'Start Break'; }
       } else {
         el.startBtn.classList.remove('running');
         if(icon) icon.textContent = '▶';
-        if(label) label.textContent = timer.elapsed > 0 ? 'Resume' : 'Start';
+        if(label) label.textContent = 'Start Session';
       }
     }
     if(el.resetLink){
@@ -1982,10 +2072,155 @@ function timerTick(){
     if(timer.elapsed % 30 === 0) checkAchievements();
 
     updateTimerUI();
+    if(focusModeActive) updateFocusOverlay();
     if(timer.elapsed % 2 === 0) renderTopbar();
   }catch(err){
     console.error('[StudyFlow] Timer tick error:', err);
   }
+}
+
+/* ============================================================
+   IMMERSIVE FOCUS MODE
+============================================================ */
+const FOCUS_C = 2 * Math.PI * 135;
+(function(){ const r = document.getElementById('focusRingFg'); if(r) r.style.strokeDasharray = FOCUS_C; })();
+
+function enterFocusMode(){
+  focusModeActive = true;
+  const overlay = document.getElementById('focusOverlay');
+  if(!overlay) return;
+  overlay.classList.add('open');
+  overlay.classList.remove('paused');
+  overlay.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  updateFocusOverlay();
+}
+
+function exitFocusMode(){
+  focusModeActive = false;
+  const overlay = document.getElementById('focusOverlay');
+  if(overlay){
+    overlay.classList.remove('open','paused');
+    overlay.setAttribute('aria-hidden','true');
+  }
+  document.body.style.overflow = '';
+}
+
+function updateFocusOverlay(){
+  const overlay = document.getElementById('focusOverlay');
+  if(!overlay || !overlay.classList.contains('open')) return;
+
+  const subject = (el.subject && el.subject.value) ? el.subject.value : 'General';
+  const subjEl = document.getElementById('focusSubject');
+  if(subjEl) subjEl.textContent = subject;
+
+  const tEl = document.getElementById('focusTimer');
+  if(tEl) tEl.textContent = formatClock(timer.elapsed);
+  const lblEl = document.getElementById('focusTimerLabel');
+  if(lblEl) lblEl.textContent = timer.running ? 'Focus Session' : 'Paused';
+
+  // Current studying time vs daily goal
+  const todayPrior = secondsOnDate(ymd(new Date()));
+  const currentTotal = todayPrior + timer.elapsed;
+  const goalSec = Math.max(1, state.settings.dailyGoal * 60);
+  const pct = Math.min(100, (currentTotal / goalSec) * 100);
+  const bar = document.getElementById('focusGoalBar');
+  if(bar) bar.style.width = pct + '%';
+  const pctEl = document.getElementById('focusGoalPct');
+  if(pctEl) pctEl.textContent = Math.round(pct) + '%';
+  const txtEl = document.getElementById('focusGoalTxt');
+  if(txtEl) txtEl.textContent = formatDuration(currentTotal) + ' of ' + state.settings.dailyGoal + 'm goal today';
+
+  // Session ring fills over a soft 50-minute arc
+  const ring = document.getElementById('focusRingFg');
+  if(ring){
+    const target = 50 * 60;
+    const p = Math.min(1, timer.elapsed / target);
+    ring.style.strokeDashoffset = FOCUS_C * (1 - p);
+  }
+
+  const pauseBtn = document.getElementById('focusPauseBtn');
+  if(pauseBtn) pauseBtn.textContent = timer.running ? '⏸ Pause' : '▶ Resume';
+  overlay.classList.toggle('paused', !timer.running);
+}
+
+function startSession(){
+  if(timer.running) return;
+  if(timer.direction === 'down'){ startTimer(); return; }   // resume a break
+  if(timer.elapsed === 0){
+    timer.sessionXp = 0;
+    timer.sessionCoins = 0;
+    timer.pausedDuringSession = false;
+    timer.startedAt = Date.now();
+  }
+  enterFocusMode();
+  startTimer();
+}
+
+function endSession(){
+  if(timer.direction === 'down'){ resetTimer(); return; }
+
+  if(timer.running) pauseTimer();
+
+  const elapsed = Math.round(timer.elapsed);
+  const subject = (el.subject && el.subject.value) ? el.subject.value : 'General';
+  const xpGained = timer.sessionXp || 0;
+  const coinsGained = timer.sessionCoins || 0;
+  const wasPaused = !!timer.pausedDuringSession;
+  const tokensBefore = availableSpinTokens();
+  let logged = false;
+
+  if(elapsed >= 10){
+    logged = true;
+    state.sessions.push({
+      id: Date.now() + '-' + Math.random().toString(36).slice(2,7),
+      ts: Date.now(),
+      seconds: elapsed,
+      subject: subject,
+      mode: 'focus'
+    });
+    const s = computeStreak();
+    if(s.current > state.bestStreak) state.bestStreak = s.current;
+    if(elapsed >= 1500 && !wasPaused){
+      state.cycleChain = (state.cycleChain || 0) + 1;
+      state.totalCycles = (state.totalCycles || 0) + 1;
+    } else {
+      state.cycleChain = 0;
+    }
+  }
+
+  const tokensAfter = availableSpinTokens();
+  const tokensGained = Math.max(0, tokensAfter - tokensBefore);
+
+  // Reset timer state
+  timer.elapsed = 0;
+  timer.sessionXp = 0;
+  timer.sessionCoins = 0;
+  timer.pausedDuringSession = false;
+  timer.startedAt = null;
+  state.inProgressTimer = { elapsed: 0, sessionXp: 0, sessionCoins: 0, subject: 'General', startedAt: null };
+
+  saveState();
+  updateTimerUI();
+  checkAchievements();
+  renderAll();
+  exitFocusMode();
+
+  if(logged){
+    setTimeout(() => showSessionSummary({ seconds: elapsed, subject, xp: xpGained, coins: coinsGained, tokens: tokensGained }), 260);
+  } else {
+    flushToastQueue();
+    toast('◌','Session too short','Sessions under 10 seconds don\'t earn rewards.');
+  }
+}
+
+function showSessionSummary(data){
+  document.getElementById('sessionSummarySubject').textContent = data.subject || 'General';
+  document.getElementById('sessionSummaryTime').textContent = formatDuration(data.seconds);
+  document.getElementById('summaryXp').textContent = '+' + data.xp;
+  document.getElementById('summaryCoins').textContent = '+' + data.coins;
+  document.getElementById('summaryTokens').textContent = '+' + data.tokens;
+  document.getElementById('sessionSummaryBackdrop').classList.add('open');
 }
 
 function breakComplete(){
@@ -2030,6 +2265,7 @@ function startTimer(){
   timer.intervalId = setInterval(timerTick, 1000);
 
   updateTimerUI();
+  if(focusModeActive) updateFocusOverlay();
 }
 
 function pauseTimer(){
@@ -2042,6 +2278,7 @@ function pauseTimer(){
   timer.pausedDuringSession = true;
   saveState();
   updateTimerUI();
+  if(focusModeActive) updateFocusOverlay();
   renderAll();
 }
 
@@ -2095,6 +2332,7 @@ function resetTimer(){
   updateTimerUI();
   renderAll();
   checkAchievements();
+  exitFocusMode();
 }
 
 function logSession(seconds, subject, mode){
@@ -2137,12 +2375,20 @@ function beepLose(){ if(!state.settings.sound) return; try{ ensureAudio(); const
 
 const toastWrap = document.getElementById('toastWrap');
 function toast(icon, title, sub){
+  if(focusModeActive){ toastQueue.push({icon, title, sub}); return; }
+  _doToast(icon, title, sub);
+}
+function _doToast(icon, title, sub){
   const el = document.createElement('div'); el.className='toast';
   el.innerHTML = '<span class="toast-icon">'+icon+'</span><div><div class="toast-title"></div>'+(sub?'<div class="toast-sub"></div>':'')+'</div>';
   el.querySelector('.toast-title').textContent = title;
   if(sub) el.querySelector('.toast-sub').textContent = sub;
   toastWrap.appendChild(el);
   setTimeout(()=>{ el.classList.add('out'); setTimeout(()=>el.remove(),300); },3800);
+}
+function flushToastQueue(){
+  const q = toastQueue; toastQueue = [];
+  q.forEach((t,i) => setTimeout(()=>_doToast(t.icon, t.title, t.sub), i*650));
 }
 
 const QUOTES = [
@@ -3024,6 +3270,7 @@ function handleGoalSave(){
   saveState();
   updateGoalDisplayFromState();
   renderAll();
+  if(focusModeActive) updateFocusOverlay();
   toast('✓','Daily goal saved', 'Target set to ' + h + 'h ' + m + 'm');
   const btn = document.getElementById('goalSaveBtn');
   btn.classList.add('saved');
@@ -3203,10 +3450,35 @@ document.querySelectorAll('.dock-btn').forEach(btn=>{
 });
 document.getElementById('bannerStart').addEventListener('click',()=>{
   document.querySelector('.dock-btn[data-view="timer"]').click();
-  setTimeout(()=>{ if(!timer.running) startTimer(); }, 350);
+  setTimeout(()=>{ if(!timer.running && timer.direction === 'up') startSession(); }, 350);
 });
-el.startBtn.addEventListener('click', toggleTimer);
+el.startBtn.addEventListener('click', () => {
+  if(timer.direction === 'down'){
+    if(timer.running) pauseTimer(); else startTimer();
+    return;
+  }
+  if(timer.running) endSession();
+  else startSession();
+});
 if(el.resetLink) el.resetLink.addEventListener('click', resetTimer);
+
+// Focus overlay controls
+document.getElementById('focusEndBtn').addEventListener('click', endSession);
+document.getElementById('focusPauseBtn').addEventListener('click', () => {
+  if(timer.running) pauseTimer(); else startTimer();
+});
+
+// Session summary close
+document.getElementById('sessionSummaryClose').addEventListener('click', () => {
+  document.getElementById('sessionSummaryBackdrop').classList.remove('open');
+  setTimeout(flushToastQueue, 250);
+});
+document.getElementById('sessionSummaryBackdrop').addEventListener('click', e => {
+  if(e.target === document.getElementById('sessionSummaryBackdrop')){
+    e.currentTarget.classList.remove('open');
+    setTimeout(flushToastQueue, 250);
+  }
+});
 
 document.getElementById('goalSaveBtn').addEventListener('click', handleGoalSave);
 document.getElementById('goalHoursInput').addEventListener('keydown', (e) => { if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('goalMinutesInput').focus(); } });
@@ -3221,8 +3493,17 @@ document.getElementById('newSubjectInput').addEventListener('keydown', e=>{ if(e
 document.addEventListener('keydown', e=>{
   const tag = (e.target.tagName||'').toLowerCase();
   if(tag==='input'||tag==='select'||tag==='textarea') return;
+
+  if(focusModeActive){
+    if(e.code==='Space'){ e.preventDefault(); if(timer.running) pauseTimer(); else startTimer(); }
+    return;
+  }
   if(document.getElementById('view-timer').classList.contains('active')){
-    if(e.code==='Space'){ e.preventDefault(); toggleTimer(); }
+    if(e.code==='Space'){
+      e.preventDefault();
+      if(timer.direction === 'down'){ if(timer.running) pauseTimer(); else startTimer(); }
+      else { if(timer.running) endSession(); else startSession(); }
+    }
     if(e.key==='r'||e.key==='R') resetTimer();
   }
 });
@@ -3291,6 +3572,7 @@ document.getElementById('resetDataBtn').addEventListener('click',()=>{
   timer.direction = 'up'; timer.mode = 'focus';
   populateSubjects();
   syncTimerTotal(); updateTimerUI();
+  exitFocusMode();
   backdrop.classList.remove('open'); renderAll();
   saveState(); pushStateToCloud();
   toast('◌','Data reset','Your cloud account is now empty');
@@ -3320,7 +3602,7 @@ document.getElementById('accountSyncBtn').addEventListener('click', async ()=>{
   let resizeT;
   window.addEventListener('resize', ()=>{ clearTimeout(resizeT); resizeT = setTimeout(drawWheel, 200); });
   setInterval(()=>{ if(!document.hidden && !timer.running && currentUser) renderAll(); }, 60000);
-  console.log('%c◉ StudyFlow · Break timer + Profile cosmetics ready', 'color:#fff;font-weight:bold;font-size:14px');
+  console.log('%c◉ StudyFlow · Focus Mode + Session Summary ready', 'color:#fff;font-weight:bold;font-size:14px');
 })();
 </script>
 </body>
