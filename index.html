@@ -625,6 +625,12 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
 .focus-pause-btn{padding:10px 22px;border-radius:99px;background:transparent;border:1px solid var(--glass-border);color:var(--text-3);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s var(--ease)}
 .focus-pause-btn:hover{color:#fff;border-color:var(--glass-border-2);background:rgba(255,255,255,.04)}
 
+/* Fullscreen hint inside focus overlay */
+.focus-fs-hint{display:none;align-items:center;gap:10px;font-size:11px;color:var(--text-3);letter-spacing:.04em;font-weight:500;margin-top:-14px;flex-wrap:wrap;justify-content:center}
+.focus-fs-hint.show{display:inline-flex}
+.focus-fs-hint button{background:rgba(255,255,255,.06);border:1px solid var(--glass-border);color:var(--text-2);padding:6px 13px;border-radius:99px;font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;transition:all .2s var(--ease)}
+.focus-fs-hint button:hover{color:#fff;border-color:var(--glass-border-2);background:rgba(255,255,255,.1)}
+
 /* Session summary modal */
 .session-summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:22px}
 .session-summary-item{padding:16px 8px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border)}
@@ -1310,6 +1316,10 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
     <div class="focus-actions">
       <button type="button" class="focus-end-btn" id="focusEndBtn">End Session</button>
       <button type="button" class="focus-pause-btn" id="focusPauseBtn">⏸ Pause</button>
+    </div>
+    <div class="focus-fs-hint" id="focusFsHint">
+      <span>Browser chrome is visible.</span>
+      <button type="button" id="focusFsBtn">⛶ Re-enter fullscreen</button>
     </div>
   </div>
 </div>
@@ -2080,6 +2090,45 @@ function timerTick(){
 }
 
 /* ============================================================
+   FULLSCREEN (native distraction blocker)
+============================================================ */
+function isFullscreenSupported(){
+  const el = document.documentElement;
+  return !!(el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen);
+}
+function isFullscreenActive(){
+  return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+}
+function enterFullscreen(){
+  if(isFullscreenActive()) return;
+  const el = document.documentElement;
+  try{
+    // MUST be called synchronously from a user gesture.
+    if(el.requestFullscreen)             el.requestFullscreen({ navigationUI: 'hide' }).catch(()=>{});
+    else if(el.webkitRequestFullscreen)  el.webkitRequestFullscreen();
+    else if(el.mozRequestFullScreen)     el.mozRequestFullScreen();
+    else if(el.msRequestFullscreen)      el.msRequestFullscreen();
+  }catch(e){ /* ignore — unsupported or blocked */ }
+}
+function exitFullscreen(){
+  if(!isFullscreenActive()) return;
+  try{
+    if(document.exitFullscreen)              document.exitFullscreen().catch(()=>{});
+    else if(document.webkitExitFullscreen)   document.webkitExitFullscreen();
+    else if(document.mozCancelFullScreen)    document.mozCancelFullScreen();
+    else if(document.msExitFullscreen)       document.msExitFullscreen();
+  }catch(e){}
+}
+function updateFullscreenHint(){
+  const hint = document.getElementById('focusFsHint');
+  if(!hint) return;
+  if(!focusModeActive || !isFullscreenSupported()){ hint.classList.remove('show'); return; }
+  hint.classList.toggle('show', !isFullscreenActive());
+}
+['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange']
+  .forEach(ev => document.addEventListener(ev, () => { updateFullscreenHint(); }));
+
+/* ============================================================
    IMMERSIVE FOCUS MODE
 ============================================================ */
 const FOCUS_C = 2 * Math.PI * 135;
@@ -2094,6 +2143,7 @@ function enterFocusMode(){
   overlay.setAttribute('aria-hidden','false');
   document.body.style.overflow = 'hidden';
   updateFocusOverlay();
+  updateFullscreenHint();
 }
 
 function exitFocusMode(){
@@ -2153,6 +2203,7 @@ function startSession(){
     timer.pausedDuringSession = false;
     timer.startedAt = Date.now();
   }
+  enterFullscreen();       // synchronous → user gesture preserved
   enterFocusMode();
   startTimer();
 }
@@ -2205,6 +2256,7 @@ function endSession(){
   checkAchievements();
   renderAll();
   exitFocusMode();
+  exitFullscreen();
 
   if(logged){
     setTimeout(() => showSessionSummary({ seconds: elapsed, subject, xp: xpGained, coins: coinsGained, tokens: tokensGained }), 260);
@@ -2333,6 +2385,7 @@ function resetTimer(){
   renderAll();
   checkAchievements();
   exitFocusMode();
+  exitFullscreen();
 }
 
 function logSession(seconds, subject, mode){
@@ -3450,7 +3503,7 @@ document.querySelectorAll('.dock-btn').forEach(btn=>{
 });
 document.getElementById('bannerStart').addEventListener('click',()=>{
   document.querySelector('.dock-btn[data-view="timer"]').click();
-  setTimeout(()=>{ if(!timer.running && timer.direction === 'up') startSession(); }, 350);
+  if(!timer.running && timer.direction === 'up') startSession();
 });
 el.startBtn.addEventListener('click', () => {
   if(timer.direction === 'down'){
@@ -3467,6 +3520,7 @@ document.getElementById('focusEndBtn').addEventListener('click', endSession);
 document.getElementById('focusPauseBtn').addEventListener('click', () => {
   if(timer.running) pauseTimer(); else startTimer();
 });
+document.getElementById('focusFsBtn').addEventListener('click', () => enterFullscreen());
 
 // Session summary close
 document.getElementById('sessionSummaryClose').addEventListener('click', () => {
@@ -3573,6 +3627,7 @@ document.getElementById('resetDataBtn').addEventListener('click',()=>{
   populateSubjects();
   syncTimerTotal(); updateTimerUI();
   exitFocusMode();
+  exitFullscreen();
   backdrop.classList.remove('open'); renderAll();
   saveState(); pushStateToCloud();
   toast('◌','Data reset','Your cloud account is now empty');
@@ -3602,7 +3657,7 @@ document.getElementById('accountSyncBtn').addEventListener('click', async ()=>{
   let resizeT;
   window.addEventListener('resize', ()=>{ clearTimeout(resizeT); resizeT = setTimeout(drawWheel, 200); });
   setInterval(()=>{ if(!document.hidden && !timer.running && currentUser) renderAll(); }, 60000);
-  console.log('%c◉ StudyFlow · Focus Mode + Session Summary ready', 'color:#fff;font-weight:bold;font-size:14px');
+  console.log('%c◉ StudyFlow · Focus Mode + Fullscreen + Session Summary ready', 'color:#fff;font-weight:bold;font-size:14px');
 })();
 </script>
 </body>
