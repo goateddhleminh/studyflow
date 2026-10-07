@@ -667,6 +667,185 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
   .focus-content{gap:24px}
   .focus-goal{padding:16px 18px}
 }
+/* ===== Planner ===== */
+.planner-layout{display:grid;grid-template-columns:216px minmax(0,1fr);gap:16px;align-items:start}
+.planner-ribbon{position:sticky;top:112px;display:flex;flex-direction:column;gap:5px;padding:8px;border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid var(--glass-border);backdrop-filter:blur(22px)}
+.planner-ribbon-label{font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3);padding:6px 12px 5px}
+.ribbon-item{display:flex;align-items:center;gap:11px;width:100%;padding:11px 10px;border-radius:15px;border:1px solid transparent;background:transparent;color:var(--text-3);font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;text-align:left;transition:all .2s var(--ease)}
+.ribbon-item:hover{background:rgba(255,255,255,.05);color:var(--text)}
+.ribbon-item.active{background:linear-gradient(135deg, rgba(255,255,255,.20), rgba(255,255,255,.08));color:#fff;border-color:rgba(255,255,255,.25);box-shadow:0 4px 22px rgba(255,255,255,.12)}
+.ribbon-ico{width:26px;height:26px;border-radius:9px;display:grid;place-items:center;font-size:14px;background:rgba(255,255,255,.05);flex-shrink:0}
+.ribbon-item.active .ribbon-ico{background:rgba(255,255,255,.14)}
+.ribbon-txt{flex:1;min-width:0;line-height:1.35;overflow-wrap:anywhere}
+.ribbon-badge{font-size:9.5px;font-weight:800;padding:3px 7px;border-radius:99px;background:rgba(255,255,255,.07);border:1px solid var(--glass-border);color:var(--text-2);font-variant-numeric:tabular-nums;flex-shrink:0}
+.ribbon-item.active .ribbon-badge{background:rgba(0,0,0,.32);color:#fff}
+
+.planner-body{min-width:0;display:flex;flex-direction:column;gap:16px}
+.planner-page{display:none;flex-direction:column;gap:16px;animation:fadeUp .3s var(--ease)}
+.planner-page.active{display:flex}
+.planner-card{padding:22px}
+.planner-head{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+.planner-head h3{font-size:15.5px;font-weight:600;color:#fff}
+.planner-head .ph-sub{font-size:12px;color:var(--text-3);margin-top:3px}
+.planner-head-actions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.planner-card .card-title{margin-top:22px}
+
+.planner-translation{display:none;align-items:flex-start;gap:9px;margin-top:8px;padding:10px 13px;border-radius:11px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);font-size:12.5px;color:var(--text-2);line-height:1.5}
+.planner-translation.show{display:flex;animation:fadeUp .3s var(--ease)}
+.planner-translation b{color:#fff;font-weight:600}
+.planner-translation .tr-ico{opacity:.7;flex-shrink:0}
+
+.planner-form{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.planner-form.col{flex-direction:column;align-items:stretch}
+.planner-input-wrap{position:relative;flex:1;min-width:200px;display:flex;align-items:center}
+.planner-input-wrap::before{content:'✦';position:absolute;left:14px;font-size:12px;color:var(--text-3);pointer-events:none}
+.planner-input-wrap input{font-size:13.5px;padding:12px 14px 12px 38px;background:rgba(0,0,0,.35)}
+.planner-select{font-family:inherit;font-size:12.5px;font-weight:600;padding:12px 34px 12px 14px;border-radius:12px;background-color:rgba(255,255,255,.05);border:1px solid var(--glass-border);color:var(--text);outline:none;cursor:pointer;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='rgba(255,255,255,.5)' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 13px center}
+.planner-select option{background:#0a0a10;color:#fff}
+.planner-select:focus{border-color:rgba(255,255,255,.28)}
+.planner-add{height:44px;padding:0 22px;border-radius:12px;font-size:13px;flex-shrink:0}
+
+.planner-subarea{display:none;flex-direction:column;gap:16px}
+.planner-subarea.active{display:flex}
+.planner-filter{display:inline-flex;gap:3px;padding:4px;border-radius:14px;background:rgba(0,0,0,.4);border:1px solid var(--glass-border)}
+.planner-chip{padding:8px 15px;border-radius:11px;border:none;background:transparent;color:var(--text-3);font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap}
+.planner-chip:hover{color:var(--text)}
+.planner-chip.active{background:linear-gradient(135deg,#fff,rgba(255,255,255,.82));color:#000}
+.planner-chip.danger{color:#ffb3bc}
+.planner-chip.danger:hover{background:rgba(255,90,110,.14);color:#ffc9d0}
+
+.planner-list{display:flex;flex-direction:column;gap:8px}
+.planner-item{display:flex;align-items:center;gap:12px;padding:13px 15px;border-radius:15px;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden;transition:all .2s var(--ease)}
+.planner-item:hover{background:rgba(255,255,255,.055);border-color:var(--glass-border-2)}
+.planner-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:rgba(255,255,255,.14)}
+.planner-item.pri-high::before{background:var(--lose)}
+.planner-item.pri-medium::before{background:var(--over)}
+.planner-item.pri-low::before{background:var(--under)}
+.planner-item.st-done{opacity:.55}
+.planner-item.st-done .planner-item-title{text-decoration:line-through;color:var(--text-3)}
+.planner-item.st-done::before{background:var(--win)}
+
+.pcheck{position:relative;width:23px;height:23px;flex-shrink:0;display:grid;place-items:center}
+.pcheck input{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;z-index:2}
+.pcheck-box{width:23px;height:23px;border-radius:8px;border:1.5px solid rgba(255,255,255,.28);display:grid;place-items:center;transition:all .2s var(--ease);background:rgba(0,0,0,.25)}
+.pcheck-box::after{content:'✓';font-size:13px;font-weight:800;color:#000;opacity:0;transform:scale(.5);transition:all .2s var(--ease)}
+.pcheck:hover .pcheck-box{border-color:rgba(255,255,255,.5)}
+.pcheck input:checked ~ .pcheck-box{background:linear-gradient(135deg,#fff,rgba(255,255,255,.8));border-color:#fff;box-shadow:0 0 16px rgba(255,255,255,.28)}
+.pcheck input:checked ~ .pcheck-box::after{opacity:1;transform:scale(1)}
+.pcheck input:focus-visible ~ .pcheck-box{border-color:#fff}
+
+.planner-item-text{flex:1;min-width:0}
+.planner-item-title{font-size:13.5px;font-weight:600;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.planner-item-meta{font-size:11px;color:var(--text-3);margin-top:3px;font-weight:500;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.planner-item-actions{display:flex;gap:6px;align-items:center;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end}
+.pri{font-size:9.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:7px;border:1px solid var(--glass-border);background:rgba(255,255,255,.05);color:var(--text-2);white-space:nowrap}
+.pri.pri-high{color:#ffb3bc;border-color:rgba(255,107,125,.4);background:rgba(255,107,125,.1)}
+.pri.pri-medium{color:#ffc59c;border-color:rgba(255,155,92,.38);background:rgba(255,155,92,.09)}
+.pri.pri-low{color:#9ddcff;border-color:rgba(92,200,255,.38);background:rgba(92,200,255,.09)}
+.pst{font-family:inherit;font-size:10.5px;font-weight:700;padding:7px 10px;border-radius:9px;border:1px solid var(--glass-border);background:rgba(0,0,0,.35);color:var(--text-2);cursor:pointer;outline:none;-webkit-appearance:none;appearance:none;max-width:118px}
+.pst option{background:#0a0a10;color:#fff}
+.pst[data-status="todo"]{color:#e6e6ee;border-color:rgba(255,255,255,.2)}
+.pst[data-status="progress"]{color:#ffe08c;border-color:rgba(250,204,21,.42);background:rgba(250,204,21,.09)}
+.pst[data-status="done"]{color:#8dffb8;border-color:rgba(92,214,138,.42);background:rgba(92,214,138,.1)}
+.pst[data-status="blocked"]{color:#ff9fab;border-color:rgba(255,107,125,.4);background:rgba(255,107,125,.09)}
+.pst[data-status="later"]{color:#c4b5fd;border-color:rgba(196,181,253,.35);background:rgba(196,181,253,.08)}
+.pdel{width:30px;height:30px;border-radius:9px;border:1px solid var(--glass-border);background:rgba(255,255,255,.04);color:var(--text-3);font-size:15px;line-height:1;cursor:pointer;font-family:inherit;display:grid;place-items:center;transition:all .2s var(--ease);flex-shrink:0}
+.pdel:hover{color:#ffb3bc;background:rgba(255,90,110,.13);border-color:rgba(255,90,110,.32)}
+.planner-rewards{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.reward-chip{font-size:11px;font-weight:700;padding:6px 11px;border-radius:9px;background:rgba(255,255,255,.045);border:1px solid var(--glass-border);color:var(--text-2);white-space:nowrap;font-variant-numeric:tabular-nums}
+.reward-chip b{font-weight:700;color:var(--text-3)}
+.reward-chip.bonus{color:#d8d8e2;border-color:rgba(255,255,255,.17);background:rgba(255,255,255,.06)}
+.planner-rewards.claimed .reward-chip{color:var(--text-3)}
+.planner-rewards.claimed .reward-chip b{color:var(--text-3)}
+.planner-empty{text-align:center;padding:34px 16px;color:var(--text-3);font-size:12.5px;border:1px dashed rgba(255,255,255,.1);border-radius:16px;background:rgba(255,255,255,.012)}
+.planner-empty .big{font-size:26px;display:block;margin-bottom:10px;opacity:.55}
+.planner-empty b{color:var(--text-2);font-weight:600}
+
+.planner-progress{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:15px;background:rgba(255,255,255,.03);border:1px solid var(--glass-border);margin-bottom:16px}
+.planner-progress .pp-num{font-family:var(--mono);font-size:20px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums;white-space:nowrap}
+.planner-progress .pp-body{flex:1;min-width:0}
+.planner-progress .pp-lbl{font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:7px}
+.planner-progress .progress{margin-top:0}
+
+.week-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:12px}
+.week-day{display:flex;flex-direction:column;gap:12px;padding:16px;border-radius:20px;background:rgba(255,255,255,.026);border:1px solid rgba(255,255,255,.06);transition:border-color .2s var(--ease)}
+.week-day:hover{border-color:var(--glass-border-2)}
+.week-day.today{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.055);box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.week-day-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;cursor:pointer}
+.wd-name{font-size:12.5px;font-weight:700;color:#fff;letter-spacing:.03em}
+.week-day.today .wd-name{color:#fff}
+.wd-count{margin-left:auto;font-size:10.5px;font-weight:700;color:var(--text-3);font-variant-numeric:tabular-nums;white-space:nowrap}
+.wd-bonus{width:100%;font-size:10px;font-weight:600;color:#d8d8e2;padding:7px 10px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid var(--glass-border);line-height:1.4}
+.wd-bonus.claimed{color:#8dffb8;border-color:rgba(92,214,138,.42);background:rgba(92,214,138,.1);font-weight:700}
+.wd-bonus.none{opacity:.45}
+.wd-note{width:100%;font-size:12.5px;line-height:1.5;min-height:0;padding:10px 12px;border-radius:12px;background:rgba(0,0,0,.3);border:1px dashed rgba(255,255,255,.14);color:var(--text);resize:vertical;outline:none;font-family:inherit}
+.wd-note:focus{border-style:solid;border-color:rgba(255,255,255,.28);background:rgba(0,0,0,.4)}
+.wd-note::placeholder{color:var(--text-3)}
+.wd-tasks{display:flex;flex-direction:column;gap:6px;min-height:4px}
+.wd-task{display:flex;align-items:flex-start;gap:9px;padding:8px 9px;border-radius:11px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05)}
+.wd-task.st-done{opacity:.5}
+.wd-task.st-done .wd-task-title{text-decoration:line-through;color:var(--text-3)}
+.wd-task .pcheck{width:19px;height:19px}
+.wd-task .pcheck-box{width:19px;height:19px;border-radius:6px}
+.wd-task .pcheck-box::after{content:'✓';font-size:11px}
+.wd-task-title{flex:1;min-width:0;font-size:12.5px;font-weight:500;color:var(--text);line-height:1.45;word-break:break-word;cursor:pointer}
+.wd-task .pdel{width:24px;height:24px;font-size:13px;border-radius:7px}
+.wd-empty{font-size:11.5px;color:var(--text-3);padding:7px 2px;font-weight:500}
+.wd-add{display:flex;gap:7px;align-items:center;margin-top:auto}
+.wd-add input{font-size:12.5px;padding:9px 12px;background:rgba(0,0,0,.35)}
+.wd-add button{width:36px;height:36px;flex-shrink:0;border-radius:11px;border:1px solid var(--glass-border);background:rgba(255,255,255,.06);color:#fff;font-size:17px;font-weight:400;line-height:1;cursor:pointer;font-family:inherit;display:grid;place-items:center;transition:all .2s var(--ease)}
+.wd-add button:hover{background:rgba(255,255,255,.13)}
+
+.res-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start}
+.res-subject{display:flex;flex-direction:column;gap:13px;padding:18px;border-radius:22px;background:rgba(255,255,255,.026);border:1px solid rgba(255,255,255,.06)}
+.res-subject:hover{border-color:var(--glass-border-2)}
+.res-subject-head{display:flex;align-items:center;gap:11px}
+.res-subject-ico{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;font-size:17px;background:rgba(255,255,255,.06);border:1px solid var(--glass-border);flex-shrink:0}
+.res-subject-info{flex:1;min-width:0}
+.res-subject-name{font-size:14px;font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.res-subject-meta{font-size:11px;color:var(--text-3);font-weight:500;margin-top:2px}
+.res-list{display:flex;flex-direction:column;gap:7px}
+.res-item{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:13px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);transition:all .2s var(--ease)}
+.res-item:hover{background:rgba(255,255,255,.06);border-color:var(--glass-border-2)}
+.res-icon{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:15px;flex-shrink:0;background:rgba(255,255,255,.05);color:var(--text-2)}
+.res-icon.link{color:#8ad4ff}
+.res-icon.file{color:#c4b5fd}
+.res-info{flex:1;min-width:0}
+.res-name{font-size:12.5px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.res-name a{color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.22)}
+.res-name a:hover{border-bottom-color:#fff}
+.res-url{font-size:10.5px;color:var(--text-3);margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}
+.res-actions{display:flex;gap:5px;align-items:center;flex-shrink:0}
+.res-open,.res-del{width:29px;height:29px;border-radius:9px;border:1px solid var(--glass-border);background:rgba(255,255,255,.04);color:var(--text-2);font-size:13px;cursor:pointer;font-family:inherit;display:grid;place-items:center;text-decoration:none;transition:all .2s var(--ease)}
+.res-open:hover{color:#fff;background:rgba(255,255,255,.11)}
+.res-del:hover{color:#ffb3bc;background:rgba(255,90,110,.13);border-color:rgba(255,90,110,.32)}
+.res-add{width:100%;padding:11px;border-radius:13px;border:1px dashed rgba(255,255,255,.18);background:rgba(255,255,255,.02);color:var(--text-2);font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .2s var(--ease)}
+.res-add:hover{border-style:solid;border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.07);color:#fff}
+.res-upload-hint{font-size:11px;color:var(--text-3);line-height:1.5;margin-top:-4px}
+#resFileInput{font-size:11.5px;padding:10px 12px;background:rgba(0,0,0,.35);color:var(--text-2)}
+#resFileInput::file-selector-button{font-family:inherit;font-size:11.5px;font-weight:700;margin-right:12px;padding:8px 14px;border-radius:9px;border:1px solid var(--glass-border-2);background:rgba(255,255,255,.08);color:#fff;cursor:pointer}
+#resFileInput::file-selector-button:hover{background:rgba(255,255,255,.16)}
+.res-file-meta{font-size:11.5px;color:var(--text-3);margin-top:-6px;font-weight:500}
+@media (max-width:1024px){
+  .planner-layout{grid-template-columns:1fr;gap:14px}
+  .planner-ribbon{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none;border-radius:18px}
+  .planner-ribbon::-webkit-scrollbar{display:none}
+  .planner-ribbon-label,.ribbon-badge{display:none}
+  .ribbon-item{width:auto;flex:0 0 auto;padding:10px 13px}
+  .ribbon-txt{white-space:nowrap}
+  .week-grid{grid-template-columns:1fr}
+  .res-grid{grid-template-columns:1fr}
+}
+@media (max-width:520px){
+  .planner-head-actions{margin-left:0;width:100%}
+  .planner-form{gap:8px}
+  .planner-form .planner-input-wrap{min-width:100%}
+  .planner-form .planner-select{flex:1}
+  .planner-add{width:100%}
+  .planner-item{flex-wrap:wrap}
+  .planner-item-actions{width:100%;justify-content:flex-start;padding-left:35px}
+  .planner-card{padding:17px}
+}
 @media (max-width:520px){
   .field-row{grid-template-columns:1fr}
   .topbar-right .pill .pill-lbl{display:none}
@@ -734,6 +913,10 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
   <button class="dock-btn active" data-view="dashboard" title="Dashboard">
     <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="2"/><rect x="14" y="3" width="7" height="5" rx="2"/><rect x="14" y="12" width="7" height="9" rx="2"/><rect x="3" y="16" width="7" height="5" rx="2"/></svg>
     <span>Dashboard</span>
+  </button>
+  <button class="dock-btn" data-view="planner" title="Planner">
+    <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="17" rx="3"/><path d="M3 9h18M8 2.5v3.5M16 2.5v3.5"/><path d="M7.5 13.5h3M7.5 17h6.5"/></svg>
+    <span>Planner</span>
   </button>
   <button class="dock-btn" data-view="timer" title="Focus">
     <svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>
@@ -833,6 +1016,123 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
         <h3 class="card-title"><span class="dot"></span>Study Activity — Last 13 Weeks</h3>
         <div class="heatmap" id="heatmap"></div>
         <div class="heat-legend">Less<span style="background:rgba(255,255,255,.045)"></span><span style="background:rgba(255,255,255,.16)"></span><span style="background:rgba(255,255,255,.32)"></span><span style="background:rgba(255,255,255,.55)"></span><span style="background:#fff"></span>More</div>
+      </div>
+    </section>
+
+    <section class="view" id="view-planner">
+      <div class="planner-layout">
+
+        <aside class="planner-ribbon" id="plannerRibbon" aria-label="Planner sections">
+          <div class="planner-ribbon-label">Planner</div>
+          <button type="button" class="ribbon-item active" data-planner-tab="todo">
+            <span class="ribbon-ico">✓</span>
+            <span class="ribbon-txt">To-Do List</span>
+            <span class="ribbon-badge" id="ribbonTodoBadge">0</span>
+          </button>
+          <button type="button" class="ribbon-item" data-planner-tab="schedule">
+            <span class="ribbon-ico">▦</span>
+            <span class="ribbon-txt">Weekly Schedule</span>
+            <span class="ribbon-badge" id="ribbonScheduleBadge">0</span>
+          </button>
+          <button type="button" class="ribbon-item" data-planner-tab="resources">
+            <span class="ribbon-ico">◈</span>
+            <span class="ribbon-txt">Study Resources</span>
+            <span class="ribbon-badge" id="ribbonResourcesBadge">0</span>
+          </button>
+        </aside>
+
+        <div class="planner-body">
+
+          <!-- ===== TO-DO LIST (TODAY) ===== -->
+          <div class="planner-page active" id="plannerPage-todo">
+            <div class="card planner-card">
+              <div class="planner-head">
+                <div>
+                  <h3>Today's To-Do List</h3>
+                  <div class="ph-sub" id="todoDateLabel">Plan your day and tick tasks off as you go.</div>
+                </div>
+                <div class="planner-head-actions">
+                  <div class="planner-filter">
+                    <button type="button" class="planner-chip active" data-todo-filter="all">All</button>
+                    <button type="button" class="planner-chip" data-todo-filter="active">Active</button>
+                    <button type="button" class="planner-chip" data-todo-filter="done">Done</button>
+                  </div>
+                  <button type="button" class="planner-chip danger" data-p-action="todo-clear-done">↺ Uncheck done</button>
+                </div>
+              </div>
+
+              <div class="planner-form">
+                <div class="planner-input-wrap"><input type="text" id="todoInput" maxlength="160" placeholder="What do you need to get done today?" autocomplete="off"></div>
+                <select class="planner-select" id="todoPriorityInput" title="Priority">
+                  <option value="high">🔴 High</option>
+                  <option value="medium" selected>🟠 Medium</option>
+                  <option value="low">🔵 Low</option>
+                </select>
+                <select class="planner-select" id="todoStatusInput" title="Status">
+                  <option value="todo" selected>To Do</option>
+                  <option value="progress">In Progress</option>
+                  <option value="later">Later</option>
+                  <option value="blocked">Blocked</option>
+                  <option value="done">Done</option>
+                </select>
+                <button type="button" class="btn primary planner-add" id="todoAddBtn">+ Add Task</button>
+              </div>
+              <div class="planner-rewards" id="todoRewardHint" title="Rewards are paid the moment a task is marked done"></div>
+
+              <div id="plannerBody-todo"></div>
+            </div>
+          </div>
+
+          <!-- ===== WEEKLY SCHEDULE ===== -->
+          <div class="planner-page" id="plannerPage-schedule">
+            <div class="card planner-card">
+              <div class="planner-head">
+                <div>
+                  <h3>Weekly Schedule</h3>
+                  <div class="ph-sub" id="weekRangeLabel">Monday to Sunday</div>
+                </div>
+                <div class="planner-head-actions">
+                  <span class="planner-chip" id="weekDoneChip" style="cursor:default">0 / 0 done</span>
+                  <button type="button" class="planner-chip danger" data-p-action="week-clear-done" title="Untick every done task of the week without deleting anything">↺ Uncheck all done</button>
+                </div>
+              </div>
+
+              <div class="planner-progress">
+                <span class="pp-num" id="weekProgressPct">0%</span>
+                <div class="pp-body">
+                  <div class="pp-lbl">Week progress</div>
+                  <div class="progress"><i id="weekProgressBar" style="width:0%"></i></div>
+                </div>
+              </div>
+              <div class="planner-rewards" id="weekRewardHint" title="Rewards are paid the moment a task is marked done"></div>
+
+              <div class="week-grid" id="weekGrid"></div>
+            </div>
+          </div>
+
+          <!-- ===== STUDY RESOURCES ===== -->
+          <div class="planner-page" id="plannerPage-resources">
+            <div class="card planner-card">
+              <div class="planner-head">
+                <div>
+                  <h3>Study Resources</h3>
+                  <div class="ph-sub">Group links, PDFs and files by subject so nothing gets lost.</div>
+                </div>
+                <div class="planner-head-actions">
+                  <button type="button" class="planner-chip" data-p-action="focus-res-subject-input">＋ Add subject</button>
+                </div>
+              </div>
+
+              <div class="planner-form">
+                <div class="planner-input-wrap"><input type="text" id="resSubjectInput" maxlength="40" placeholder="New subject name (e.g. Physics, Calculus…)" autocomplete="off"></div>
+                <button type="button" class="btn primary planner-add" id="resSubjectAddBtn">+ Add Subject</button>
+              </div>
+            </div>
+
+            <div id="plannerBody-resources"></div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -1281,6 +1581,44 @@ textarea{resize:vertical;min-height:90px;line-height:1.55}
   </div>
 </div>
 
+<!-- PLANNER · ATTACH RESOURCE -->
+<div class="modal-backdrop" id="resourceBackdrop">
+  <div class="modal">
+    <h3 id="resourceModalTitle">Add Resource</h3>
+    <p class="modal-sub" id="resourceModalSub">Attach a link or a file to this subject.</p>
+
+    <div class="auth-tabs" style="margin-bottom:20px">
+      <button type="button" class="auth-tab active" id="resKindTabLink">🔗 Link</button>
+      <button type="button" class="auth-tab" id="resKindTabFile">📎 File</button>
+    </div>
+
+    <div class="field">
+      <label for="resNameInput">Name</label>
+      <input type="text" id="resNameInput" maxlength="120" placeholder="e.g. Chapter 4 — Kinematics notes">
+    </div>
+
+    <div id="resLinkFields">
+      <div class="field">
+        <label for="resUrlInput">URL</label>
+        <input type="text" id="resUrlInput" placeholder="https://…" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+
+    <div id="resFileFields" style="display:none">
+      <div class="field">
+        <label for="resFileInput">Choose a file</label>
+        <input type="file" id="resFileInput">
+      </div>
+      <div class="res-upload-hint" style="margin-bottom:16px">Files up to 2&nbsp;MB are stored with your account and sync across devices. Bigger files are attached for this session only — a link is safer for large material.</div>
+    </div>
+
+    <div class="modal-actions">
+      <button type="button" class="btn ghost" id="resModalCancel">Cancel</button>
+      <button type="button" class="btn primary" id="resModalSave">Add Resource</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-backdrop" id="customizeBackdrop">
   <div class="modal customize-modal">
     <h3>Customize Rewards</h3>
@@ -1410,7 +1748,16 @@ const DEFAULTS = {
   profileTheme: 'default',
   ownedProfileThemes: ['default'],
   profileBorder: 'default',
-  ownedProfileBorders: ['default','minimal']
+  ownedProfileBorders: ['default','minimal'],
+  todos: [],
+  weekPlan: {},
+  resources: [],
+  resourceSubjects: [],
+  plannerTab: 'todo',
+  todoFilter: 'all',
+  bonusTokens: 0,
+  plannerRewards: 0,
+  plannerEarned: { coins:0, tokens:0, xp:0 }
 };
 function clone(o){ return JSON.parse(JSON.stringify(o)); }
 
@@ -1444,10 +1791,70 @@ function normalizeState(raw){
   if(m.sicboMaxBet) m.gambleMaxBet = m.sicboMaxBet;
   if(m.sicboMaxPayout) m.gambleMaxPayout = m.sicboMaxPayout;
   if(m.sicboWonTriple) m.gambleWonTriple = m.sicboWonTriple;
+  // ===== Planner =====
+  const P_PRI = ['high','medium','low'], P_ST = ['todo','progress','done','blocked','later'];
+  const cleanText = (v, max) => String(v == null ? '' : v).trim().slice(0, max || 200);
+  const cleanId = (v, fb) => (typeof v === 'string' && v.trim()) ? v.trim().slice(0, 64) : fb;
+  m.todos = (Array.isArray(m.todos) ? m.todos : []).filter(t => t && cleanText(t.text, 160)).map((t, i) => ({
+    id: cleanId(t.id, 'td' + i + '_' + Math.random().toString(36).slice(2, 8)),
+    text: cleanText(t.text, 160),
+    priority: P_PRI.includes(t.priority) ? t.priority : 'medium',
+    status: P_ST.includes(t.status) ? t.status : 'todo',
+    createdAt: Number(t.createdAt) || Date.now(),
+    completedAt: t.status === 'done' ? (Number(t.completedAt) || Date.now()) : null
+  }));
+  const rawWeek = (m.weekPlan && typeof m.weekPlan === 'object' && !Array.isArray(m.weekPlan)) ? m.weekPlan : {};
+  m.weekPlan = {};
+  for(let d = 0; d < 7; d++){
+    const src = (rawWeek[d] && typeof rawWeek[d] === 'object') ? rawWeek[d] : {};
+    m.weekPlan[d] = {
+      note: cleanText(src.note, 300),
+      tasks: (Array.isArray(src.tasks) ? src.tasks : []).filter(t => t && cleanText(t.text, 160)).map((t, i) => ({
+        id: cleanId(t.id, 'wk' + d + '_' + i + '_' + Math.random().toString(36).slice(2, 8)),
+        text: cleanText(t.text, 160),
+        done: !!t.done,
+        createdAt: Number(t.createdAt) || Date.now()
+      }))
+    };
+  }
+  m.resources = (Array.isArray(m.resources) ? m.resources : []).filter(r => r && cleanText(r.name, 120)).map((r, i) => {
+    const url = typeof r.url === 'string' ? r.url.slice(0, 2000) : '';
+    const data = typeof r.data === 'string' ? r.data : '';
+    return {
+      id: cleanId(r.id, 'rs' + i + '_' + Math.random().toString(36).slice(2, 8)),
+      subject: cleanText(r.subject, 40) || 'General',
+      name: cleanText(r.name, 120),
+      kind: r.kind === 'file' ? 'file' : 'link',
+      url: (/^https?:\/\//i.test(url) && !/\s/.test(url)) ? url : (/^[\w.-]+\.[a-z]{2,}(\/|$|\?|#)/i.test(url) ? ('https://' + url) : ''),
+      fileName: cleanText(r.fileName, 160),
+      fileSize: Number(r.fileSize) || 0,
+      fileType: cleanText(r.fileType, 120),
+      data: data.slice(0, 3000000),
+      createdAt: Number(r.createdAt) || Date.now()
+    };
+  }).filter(r => r.url || r.data);
+  m.resourceSubjects = (Array.isArray(m.resourceSubjects) ? m.resourceSubjects : [])
+    .map(s => cleanText(s, 40)).filter(s => s && !DEFAULT_SUBJECTS.includes(s))
+    .filter((s, i, a) => a.indexOf(s) === i).slice(0, 60);
+  if(!['todo','schedule','resources'].includes(m.plannerTab)) m.plannerTab = 'todo';
+  if(!['all','active','done'].includes(m.todoFilter)) m.todoFilter = 'all';
+  m.bonusTokens = Math.max(0, Math.floor(Number(m.bonusTokens) || 0));
+  m.plannerRewards = Math.max(0, Math.floor(Number(m.plannerRewards) || 0));
+  m.plannerEarned = Object.assign({ coins:0, tokens:0, xp:0 }, m.plannerEarned || {});
   return m;
 }
 
 let state = clone(DEFAULTS);
+// Lightweight debug/console hook (also used by automated UI checks).
+window.__app = {
+  get state(){ return state; },
+  get user(){ return currentUser; },
+  get rewards(){ return PLANNER_REWARDS; },
+  save: saveState,
+  normalize: normalizeState,
+  defaults: DEFAULTS,
+  plannerEarned: plannerRewardsEarned
+};
 let focusModeActive = false;
 let toastQueue = [];
 
@@ -1855,7 +2262,9 @@ const ACHIEVEMENTS = [
   {id:'night_owl', icon:'🌙', name:'Night Owl', desc:'Complete a focus session between 12:00 AM and 4:00 AM.', reward:{xp:150, coins:75}, check:()=>state.sessions.some(s=>{const h=new Date(s.ts).getHours(); return h>=0 && h<4;})},
   {id:'weekend_warrior', icon:'⚔', name:'Weekend Warrior', desc:'Log 4 or more hours on a Saturday or Sunday.', reward:{xp:250, coins:120}, check:()=>hoursOnWeekend() >= 14400},
   {id:'midday_grind', icon:'☀', name:'Midday Grind', desc:'Complete a focus session between 12:00 PM and 1:00 PM.', reward:{xp:100, coins:50}, check:()=>sessionAtHour(12)},
-  {id:'midnight_solitude', icon:'🌌', name:'Midnight Solitude', desc:'Complete a focus session active at Midnight (12:00 AM).', reward:{xp:200, coins:100, title:'Midnight Scholar'}, check:()=>state.sessions.some(s=>new Date(s.ts).getHours()===0)}
+  {id:'midnight_solitude', icon:'🌌', name:'Midnight Solitude', desc:'Complete a focus session active at Midnight (12:00 AM).', reward:{xp:200, coins:100, title:'Midnight Scholar'}, check:()=>state.sessions.some(s=>new Date(s.ts).getHours()===0)},
+  {id:'daily_planner', icon:'▦', name:'Plan Master', desc:'Tick every task of a single day in your weekly schedule.', reward:{xp:300, coins:250}, check:anyDayFullyDone},
+  {id:'clean_sweep', icon:'🏆', name:'Clean Sweep', desc:'Complete every task across all seven days of your weekly schedule.', reward:{xp:1200, coins:750, title:'Task Master'}, check:weekFullyDone}
 ];
 
 function formatReward(r){
@@ -2413,10 +2822,17 @@ function logSession(seconds, subject, mode){
 
 function availableSpinTokens(){
   const totalSec = totalFocusSeconds();
-  const earned = Math.floor(totalSec / 1800);
+  const earned = Math.floor(totalSec / 1800) + (state.bonusTokens || 0);
   return Math.max(0, earned - (state.spinTokensSpent || 0));
 }
-function totalTokensEarned(){ return Math.floor(totalFocusSeconds() / 1800); }
+function totalTokensEarned(){ return Math.floor(totalFocusSeconds() / 1800) + (state.bonusTokens || 0); }
+function grantSpinTokens(n){
+  n = Math.floor(Number(n) || 0);
+  if(n <= 0) return;
+  const owed = Math.min(n, state.spinTokensSpent || 0);
+  state.spinTokensSpent = Math.max(0, (state.spinTokensSpent || 0) - owed);
+  state.bonusTokens = (state.bonusTokens || 0) + (n - owed);
+}
 
 let audioCtx = null;
 function ensureAudio(){ try{ if(!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)(); if(audioCtx.state==='suspended') audioCtx.resume(); }catch(e){} }
@@ -2863,7 +3279,7 @@ function drawWheel(){
 }
 function spinWheel(){
   if(wheelSpinning) return;
-  if(availableSpinTokens() <= 0){ toast('🎡','No spin tokens','Earn 1 token per 30 minutes of focus.'); return; }
+  if(availableSpinTokens() <= 0){ toast('🎡','No spin tokens','Earn 1 token per 30 minutes of focus, or finish planner tasks.'); return; }
   state.spinTokensSpent = (state.spinTokensSpent||0) + 1;
   state.wheelSpins = (state.wheelSpins||0) + 1; saveState();
   const targetIdx = Math.floor(Math.random()*30);
@@ -3457,8 +3873,724 @@ function renderAchievements(){
   document.getElementById('achProgressBar').style.width = pct+'%';
   document.getElementById('achProgressTxt').textContent = unlocked+' of '+ACHIEVEMENTS.length+' unlocked';
 }
-function renderTimerSide(){
-  const todayKey = ymd(new Date()); const secs = secondsOnDate(todayKey);
+/* ============================================================
+   PLANNER — To-Do · Weekly Schedule · Study Resources
+============================================================ */
+const WEEK_DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+const WEEK_DAYS_SHORT = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+const PRIORITY_LABEL = { high:'High', medium:'Medium', low:'Low' };
+const PRIORITY_RANK = { high:0, medium:1, low:2 };
+const STATUS_LABEL = { todo:'To Do', progress:'In Progress', done:'Done', blocked:'Blocked', later:'Later' };
+const STATUS_ORDER = ['todo','progress','later','blocked','done'];
+const RESOURCE_ICONS = {
+  Writing:'✍️', Reading:'📖', Listening:'🎧', Speaking:'🗣️', Vocabulary:'🔤', Grammar:'📐',
+  Assignment:'📝', Exam:'🎯', Project:'🚀', Notes:'🗒️', Practice:'🏋️', Revision:'♻️',
+  Reference:'📚', Video:'🎬', Course:'🎓', Lab:'🔬', Language:'🌐', Research:'🔍', Other:'📌'
+};
+function todayWeekIndex(){ return Math.round((startOfDay(new Date()) - startOfWeek(new Date())) / 86400000); }
+function uid(prefix){ return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
+function plannerEntries(){
+  const all = [].concat.apply([], WEEK_DAYS.map((n, i) => (state.weekPlan[i] ? state.weekPlan[i].tasks : [])));
+  return { total: all.length, done: all.filter(t => t.done).length };
+}
+function weekDateDays(){
+  const monday = startOfWeek(new Date());
+  return WEEK_DAYS.map((n, i) => addDays(monday, i));
+}
+function normUrl(u){
+  u = String(u || '').trim();
+  if(!u || /\s/.test(u)) return '';
+  if(/^https?:\/\//i.test(u)) return u;
+  if(/^[\w.-]+\.[a-z]{2,}(\/|$|\?|#)/i.test(u)) return 'https://' + u;
+  return '';
+}
+function shortHost(u){ try{ return new URL(u).hostname.replace(/^www\./, ''); }catch(e){ return ''; } }
+function fileSizeText(b){ b = Number(b) || 0; if(b < 1024) return b + ' B'; if(b < 1048576) return (b/1024).toFixed(1) + ' KB'; return (b/1048576).toFixed(2) + ' MB'; }
+
+const plannerUI = { modalSubject:null, modalKind:'link', modalFile:null };
+
+function setPlannerTab(tab, opts){
+  opts = opts || {};
+  state.plannerTab = ['todo','schedule','resources'].includes(tab) ? tab : 'todo';
+  document.querySelectorAll('.ribbon-item').forEach(b => b.classList.toggle('active', b.dataset.plannerTab === state.plannerTab));
+  document.querySelectorAll('.planner-page').forEach(p => p.classList.toggle('active', p.id === 'plannerPage-' + state.plannerTab));
+  const restoreSel = opts.restore || null;
+  renderPlanner({ preserve: true, focus: restoreSel });
+  if(!restoreSel){
+    const vp = document.getElementById('view-planner');
+    if(vp && vp.classList.contains('active') && !vp.contains(document.activeElement)){ try{ window.scrollTo({ top:0, behavior:'smooth' }); }catch(e){ window.scrollTo(0, 0); } }
+  }
+  saveState();
+}
+function setTodoFilter(f){
+  state.todoFilter = ['all','active','done'].includes(f) ? f : 'all';
+  renderPlanner({ preserve:true });
+  saveState();
+}
+
+function plannerSnapshot(){
+  const t = document.getElementById('todoInput');
+  const r = document.getElementById('resSubjectInput');
+  const a = document.activeElement;
+  let sel = null;
+  try{ if(a && typeof a.selectionStart === 'number') sel = [a.selectionStart, a.selectionEnd]; }catch(e){}
+  const week = state.plannerTab === 'schedule' ? scheduleDrafts() : Object.assign({}, _drafts.week || {});
+  // clears requested by a handler always win over the pre-action DOM value
+  Object.keys(_clearedAdds).forEach(k => { week[k] = ''; });
+  return { todoVal: t ? t.value : '', resVal: r ? r.value : '', active: a, sel: sel, week: week };
+}
+function plannerRestore(snapshot, focusSel){
+  if(!snapshot) return;
+  const t = document.getElementById('todoInput');
+  if(t && snapshot.todoVal && !t.value) t.value = snapshot.todoVal;
+  const r = document.getElementById('resSubjectInput');
+  if(r && snapshot.resVal && !r.value) r.value = snapshot.resVal;
+  if(focusSel){
+    const nf = document.querySelector(focusSel);
+    if(nf && typeof nf.focus === 'function'){ try{ nf.focus(); }catch(e){} }
+    return;
+  }
+  const a = snapshot.active;
+  if(a && a.id && document.contains(a) && typeof a.focus === 'function' && a.tagName !== 'BODY' && viewHasActive(a)){
+    try{
+      a.focus();
+      if(snapshot.sel && typeof a.setSelectionRange === 'function') a.setSelectionRange(snapshot.sel[0], snapshot.sel[1]);
+    }catch(e){}
+  }
+}
+function viewHasActive(node){
+  const vp = document.getElementById('view-planner');
+  return !!(vp && vp.contains(node));
+}
+function scheduleDrafts(){
+  const map = {};
+  document.querySelectorAll('[data-week-note]').forEach(ta => { map[ta.dataset.weekNote] = ta.value; });
+  document.querySelectorAll('[data-week-add]').forEach(inp => { map['add' + inp.dataset.weekAdd] = inp.value; });
+  return map;
+}
+function applyScheduleDrafts(map){
+  restoreScheduleDrafts(map);
+}
+function restoreScheduleDrafts(map){
+  if(!map) map = {};
+  document.querySelectorAll('[data-week-add]').forEach(inp => {
+    const v = map['add' + inp.dataset.weekAdd];
+    inp.value = v ? String(v) : '';
+  });
+  document.querySelectorAll('[data-week-note]').forEach(ta => {
+    if(Object.prototype.hasOwnProperty.call(map, ta.dataset.weekNote)) ta.value = String(map[ta.dataset.weekNote] == null ? '' : map[ta.dataset.weekNote]);
+  });
+}
+let _drafts = { week: {} };
+let _weekSig = '';
+let _weekEditing = false;
+const _clearedAdds = {};
+/* ---- Planner reward system ---------------------------------------------
+   To-do task done        : +100 coins, +1 wheel token, +200 XP
+   Weekly task done       : +150 coins, +200 XP
+   Every task of a day    : +2 wheel tokens, +500 XP
+   Every task of the week : +5 wheel tokens, +1000 coins, +1000 XP
+------------------------------------------------------------------------- */
+const PLANNER_REWARDS = {
+  todoTask:     { coins:100, tokens:1, xp:200 },
+  weekTask:     { coins:150, tokens:0, xp:200 },
+  dayComplete:  { coins:0,   tokens:2, xp:500 },
+  weekComplete: { coins:1000, tokens:5, xp:1000 }
+};
+const REWARD_ICON = { coins:'🪙', tokens:'🎡', xp:'✦' };
+function plannerPayout(def){
+  const coins = def.coins || 0, tokens = def.tokens || 0, xp = def.xp || 0;
+  state.coins += coins;
+  if(coins > 0) state.coinsEarned = (state.coinsEarned || 0) + coins;
+  if(xp > 0) addXp(xp);
+  if(tokens > 0) grantSpinTokens(tokens);
+  state.plannerRewards = (state.plannerRewards || 0) + 1;
+  state.plannerEarned = state.plannerEarned || { coins:0, tokens:0, xp:0 };
+  state.plannerEarned.coins += coins;
+  state.plannerEarned.tokens += tokens;
+  state.plannerEarned.xp += xp;
+  return { coins: coins, tokens: tokens, xp: xp };
+}
+function payoutText(p){
+  const out = [];
+  if(p.coins) out.push('+' + p.coins + ' 🪙');
+  if(p.tokens) out.push('+' + p.tokens + ' 🎡');
+  if(p.xp) out.push('+' + p.xp + ' XP');
+  return out.join(' · ');
+}
+function rewardChipHtml(p, label, bonus){
+  const chips = [];
+  if(p.coins) chips.push('<span class="reward-chip">+' + p.coins + ' 🪙 coins</span>');
+  if(p.tokens) chips.push('<span class="reward-chip">+' + p.tokens + ' 🎡 token' + (p.tokens > 1 ? 's' : '') + '</span>');
+  if(p.xp) chips.push('<span class="reward-chip">+' + p.xp + ' ✦ XP</span>');
+  if(!chips.length) return '';
+  const tag = label ? '<span class="reward-chip' + (bonus ? ' bonus' : '') + '"><b>' + escapeHtml(label) + '</b></span>' : '';
+  return tag + chips.join('');
+}
+function plannerRewardsEarned(){
+  const s = state.plannerEarned || { coins:0, tokens:0, xp:0 };
+  return { coins: s.coins || 0, tokens: s.tokens || 0, xp: s.xp || 0 };
+}
+function plannerAward(p, toastTitle, toastLabel){
+  const t = payoutText(p);
+  saveState(); renderPlanner();
+  toast('✦', toastTitle, (toastLabel ? toastLabel + ' — ' : '') + t);
+  checkAchievements();
+  renderTopbar();
+  return t;
+}
+function dayBonusText(i){
+  const day = state.weekPlan[i];
+  if(!day || !day.tasks.length) return 'Add tasks to unlock +' + PLANNER_REWARDS.dayComplete.tokens + ' 🎡 & +' + PLANNER_REWARDS.dayComplete.xp + ' ✦';
+  if(day.tasks.every(t => t.done)) return '✓ Day complete — +' + PLANNER_REWARDS.dayComplete.tokens + ' 🎡 +' + PLANNER_REWARDS.dayComplete.xp + ' ✦ earned';
+  return 'Finish all ' + day.tasks.length + ' → +' + PLANNER_REWARDS.dayComplete.tokens + ' 🎡 +' + PLANNER_REWARDS.dayComplete.xp + ' ✦';
+}
+function dayBonusClass(i){
+  const day = state.weekPlan[i];
+  if(!day || !day.tasks.length) return ' none';
+  return day.tasks.every(t => t.done) ? ' claimed' : '';
+}
+function anyDayFullyDone(){ return WEEK_DAYS.some((n, i) => !!(state.weekPlan[i] && state.weekPlan[i].tasks.length) && state.weekPlan[i].tasks.every(t => t.done)); }
+function weekFullyDone(){
+  // every single day must hold at least one task, and every task must be done
+  const e = plannerEntries();
+  if(e.total <= 0 || e.done !== e.total) return false;
+  return WEEK_DAYS.every((n, i) => !!(state.weekPlan[i] && state.weekPlan[i].tasks.length));
+}
+function todoSortList(arr){  return arr.slice().sort((a, b) => {
+    if((a.status === 'done') !== (b.status === 'done')) return a.status === 'done' ? 1 : -1;
+    if(a.status === 'done' && b.status === 'done') return (b.completedAt || 0) - (a.completedAt || 0);
+    const r = (PRIORITY_RANK[a.priority] || 1) - (PRIORITY_RANK[b.priority] || 1);
+    return r !== 0 ? r : (a.createdAt || 0) - (b.createdAt || 0);
+  });
+}
+function countResources(){
+  const per = {};
+  (state.resources || []).forEach(r => { per[r.subject] = (per[r.subject] || 0) + 1; });
+  return per;
+}
+function allResourceSubjects(){
+  return DEFAULT_SUBJECTS.concat(state.resourceSubjects || []);
+}
+function todoCounts(){
+  const list = state.todos || [];
+  const done = list.filter(t => t.status === 'done').length;
+  return { all: list.length, done, active: list.length - done };
+}
+
+function renderPlanner(opts){
+  opts = opts || {};
+  const pending = opts.preserve ? plannerSnapshot() : null;
+  if(state.plannerTab === 'schedule') _drafts.week = scheduleDrafts();
+  document.querySelectorAll('.ribbon-item').forEach(b => b.classList.toggle('active', b.dataset.plannerTab === state.plannerTab));
+  document.querySelectorAll('.planner-page').forEach(p => p.classList.toggle('active', p.id === 'plannerPage-' + state.plannerTab));
+  document.querySelectorAll('[data-todo-filter]').forEach(b => b.classList.toggle('active', b.dataset.todoFilter === (state.todoFilter || 'all')));
+  // keep the active section visible when the ribbon is a horizontal strip (mobile)
+  const ribbonEl = document.getElementById('plannerRibbon');
+  if(ribbonEl && ribbonEl.scrollWidth > ribbonEl.clientWidth + 4){
+    const act = ribbonEl.querySelector('.ribbon-item.active');
+    if(act){
+      const target = act.offsetLeft - (ribbonEl.clientWidth - act.offsetWidth) / 2;
+      try{ ribbonEl.scrollTo({ left: Math.max(0, target), behavior:'smooth' }); }
+      catch(e){ ribbonEl.scrollLeft = Math.max(0, target); }
+    }
+  }
+
+  const tc = todoCounts();
+  const wc = plannerEntries();
+  const rc = (state.resources || []).length;
+  const rb = { todo: document.getElementById('ribbonTodoBadge'), schedule: document.getElementById('ribbonScheduleBadge'), resources: document.getElementById('ribbonResourcesBadge') };
+  if(rb.todo) rb.todo.textContent = tc.all ? tc.done + '/' + tc.all : '0';
+  if(rb.schedule) rb.schedule.textContent = wc.total ? wc.done + '/' + wc.total : '0';
+  if(rb.resources) rb.resources.textContent = String(rc);
+
+  renderTodoPage();
+  renderSchedulePage();
+  renderResourcesPage();
+
+  if(pending){ applyScheduleDrafts(pending.week); plannerRestore(pending, opts.focus); }
+  Object.keys(_clearedAdds).forEach(k => { delete _clearedAdds[k]; });
+}
+
+function renderTodoPage(){
+  const host = document.getElementById('plannerBody-todo');
+  const dateLbl = document.getElementById('todoDateLabel');
+  const list = state.todos || [];
+  const c = todoCounts();
+  const hint = document.getElementById('todoRewardHint');
+  if(hint){
+    hint.innerHTML = '<span class="reward-chip bonus"><b>Finish a task</b></span>'
+      + rewardChipHtml(PLANNER_REWARDS.todoTask, '', false)
+      + '<span class="reward-chip"><b>' + c.done + ' earned so far</b></span>';
+  }
+  if(dateLbl){
+    const now = new Date();
+    const dow = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][now.getDay()];
+    dateLbl.textContent = dow + ', ' + now.toLocaleDateString([], { month:'long', day:'numeric', year:'numeric' }) + ' · ' + c.done + ' of ' + c.all + ' done';
+  }
+  if(!list.length){
+    host.innerHTML = '<div class="planner-empty" style="margin-top:16px"><span class="big">✓</span>Nothing planned yet.<br><b>Add your first task above</b> — set its priority and status, then tick <b>Done</b> when it is finished.</div>';
+    return;
+  }
+  const f = state.todoFilter || 'all';
+  const filtered = f === 'all' ? list : (f === 'done' ? list.filter(t => t.status === 'done') : list.filter(t => t.status !== 'done'));
+  const sorted = todoSortList(filtered);
+  let html = '<div class="planner-list" style="margin-top:18px">';
+  if(!sorted.length){
+    html += '<div class="planner-empty">' + (f === 'done' ? 'No tasks marked done yet.<br><b>Tick the Done box</b> on a task to complete it.' : 'No active tasks in this list. Everything is done. 🎉') + '</div>';
+  } else {
+    sorted.forEach(t => { html += todoItemHtml(t); });
+  }
+  html += '</div>';
+  const total = list.length, doneN = c.done, pct = total ? Math.round((doneN / total) * 100) : 0;
+  html += '<div class="planner-progress" style="margin-top:16px;margin-bottom:0"><span class="pp-num">' + pct + '%</span><div class="pp-body"><div class="pp-lbl">Today\'s progress</div><div class="progress"><i style="width:' + pct + '%"></i></div></div></div>';
+  host.innerHTML = html;
+}
+function todoItemHtml(t){
+  const done = t.status === 'done';
+  const opts = STATUS_ORDER.map(s => '<option value="' + s + '"' + (t.status === s ? ' selected' : '') + '>' + STATUS_LABEL[s] + '</option>').join('');
+  const meta = [];
+  if(t.createdAt) meta.push('Added ' + new Date(t.createdAt).toLocaleDateString([], { month:'short', day:'numeric' }));
+  if(done && t.completedAt) meta.push('✓ Completed ' + new Date(t.completedAt).toLocaleTimeString([], { hour:'2-digit', minute:'2-digit' }));
+  return '<div class="planner-item pri-' + t.priority + (done ? ' st-done' : '') + '" data-todo-item="' + t.id + '">'
+    + '<label class="pcheck" title="Mark as done"><input type="checkbox" data-todo-check="' + t.id + '"' + (done ? ' checked' : '') + '><span class="pcheck-box"></span></label>'
+    + '<div class="planner-item-text"><div class="planner-item-title">' + escapeHtml(t.text) + '</div>'
+    + '<div class="planner-item-meta"><span class="pri pri-' + t.priority + '">' + PRIORITY_LABEL[t.priority] + '</span><span>' + meta.join(' · ') + '</span></div></div>'
+    + '<div class="planner-item-actions"><select class="pst" data-status="' + t.status + '" data-todo-status="' + t.id + '" title="Change status">' + opts + '</select>'
+    + '<button type="button" class="pdel" data-todo-del="' + t.id + '" title="Delete task">✕</button></div>'
+    + '</div>';
+}
+
+function renderSchedulePage(){
+  const grid = document.getElementById('weekGrid');
+  const rangeLbl = document.getElementById('weekRangeLabel');
+  const dates = weekDateDays();
+  const todayIdx = todayWeekIndex();
+  const last = dates[6];
+  const sig = todayIdx + '|' + ymd(dates[0]) + '|' + WEEK_DAYS.map((n, i) => {
+    const d = state.weekPlan[i] || { note:'', tasks:[] };
+    return i + ':' + d.tasks.length + ':' + d.tasks.map(t => (t.done ? '1' : '0') + t.id).join(',');
+  }).join('|');
+  const e = plannerEntries();
+  const pct = e.total ? Math.round((e.done / e.total) * 100) : 0;
+  const chip = document.getElementById('weekDoneChip');
+  if(chip) chip.textContent = e.done + ' / ' + e.total + ' done';
+  const pctEl = document.getElementById('weekProgressPct');
+  if(pctEl) pctEl.textContent = pct + '%';
+  const barEl = document.getElementById('weekProgressBar');
+  if(barEl) barEl.style.width = pct + '%';
+  const hint = document.getElementById('weekRewardHint');
+  if(hint){
+    const wkDone = weekFullyDone();
+    hint.className = 'planner-rewards' + (wkDone ? ' claimed' : '');
+    hint.innerHTML = rewardChipHtml(PLANNER_REWARDS.weekTask, 'Each task done', false)
+      + rewardChipHtml(PLANNER_REWARDS.dayComplete, 'Day 100% done', true)
+      + rewardChipHtml(PLANNER_REWARDS.weekComplete, wkDone ? 'Week 100% done — earned!' : 'Week 100% done', true);
+  }
+  if(rangeLbl){
+    rangeLbl.textContent = dates[0].toLocaleDateString([], { month:'short', day:'numeric' }) + ' — ' + last.toLocaleDateString([], { month:'short', day:'numeric', year:'numeric' }) + ' · finish all 7 days for +' + PLANNER_REWARDS.weekComplete.tokens + ' 🎡 +' + PLANNER_REWARDS.weekComplete.coins + ' 🪙 +' + PLANNER_REWARDS.weekComplete.xp + ' ✦';
+  }
+  if(sig === _weekSig){ restoreScheduleDrafts(_drafts.week); return; }
+  if(_weekEditing){ restoreScheduleDrafts(_drafts.week); return; }
+  _weekSig = sig;
+  grid.innerHTML = WEEK_DAYS.map((name, i) => {
+    const day = state.weekPlan[i] || { note:'', tasks:[] };
+    const doneN = day.tasks.filter(t => t.done).length;
+    const taskHtml = day.tasks.length
+      ? day.tasks.map(t => '<div class="wd-task' + (t.done ? ' st-done' : '') + '" data-week-item="' + t.id + '">'
+          + '<label class="pcheck" title="Mark as done"><input type="checkbox" data-week-check="' + i + '|' + t.id + '"' + (t.done ? ' checked' : '') + '><span class="pcheck-box"></span></label>'
+          + '<div class="wd-task-title" data-week-title="' + i + '|' + t.id + '" title="Click to edit">' + escapeHtml(t.text) + '</div>'
+          + '<button type="button" class="pdel" data-week-del="' + i + '|' + t.id + '" title="Delete task">✕</button></div>').join('')
+      : '<div class="wd-empty">Nothing planned yet.</div>';
+    return '<div class="week-day' + (i === todayIdx ? ' today' : '') + '">'
+      + '<div class="week-day-head" data-week-focus="' + i + '" title="Add a note for this day">'
+      + '<span class="wd-name">' + name + '</span>'
+      + '<span class="wd-count">' + (day.tasks.length ? doneN + '/' + day.tasks.length + ' done' : 'empty') + '</span>'
+      + '<span class="wd-bonus' + dayBonusClass(i) + '" title="Bonus for finishing every task of ' + name + '">' + dayBonusText(i) + '</span></div>'
+      + '<textarea class="wd-note" rows="2" data-week-note="' + i + '" maxlength="300" placeholder="Note for ' + WEEK_DAYS_SHORT[i] + '…">' + escapeHtml(day.note || '') + '</textarea>'
+      + '<div class="wd-tasks">' + taskHtml + '</div>'
+      + '<div class="wd-add"><input type="text" maxlength="160" data-week-add="' + i + '" placeholder="Add a task…" autocomplete="off"><button type="button" data-week-addbtn="' + i + '" title="Add task">+</button></div>'
+      + '</div>';
+  }).join('');
+  restoreScheduleDrafts(_drafts.week);
+}
+
+function renderResourcesPage(){
+  const host = document.getElementById('plannerBody-resources');
+  const subjects = allResourceSubjects();
+  const icons = RESOURCE_ICONS;
+  host.innerHTML = '<div class="res-grid">' + subjects.map(sub => {
+    const items = (state.resources || []).filter(r => r.subject === sub).sort((a, b) => b.createdAt - a.createdAt);
+    const custom = !DEFAULT_SUBJECTS.includes(sub);
+    const body = items.length ? items.map(r => {
+      const isLink = r.kind === 'link' && r.url;
+      const ico = isLink ? '🔗' : (r.fileType && r.fileType.indexOf('pdf') > -1 ? '📕' : '📎');
+      const sub2 = isLink ? (shortHost(r.url) || r.url) : ((r.fileName || 'Attached file') + (r.fileSize ? ' · ' + fileSizeText(r.fileSize) : ''));
+      return '<div class="res-item">'
+        + '<div class="res-icon ' + (isLink ? 'link' : 'file') + '">' + ico + '</div>'
+        + '<div class="res-info"><div class="res-name">' + (isLink ? '<a href="' + escapeHtml(r.url) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(r.name) + '</a>' : escapeHtml(r.name)) + '</div>'
+        + '<div class="res-url">' + escapeHtml(sub2) + '</div></div>'
+        + '<div class="res-actions">' + (isLink ? '<a class="res-open" href="' + escapeHtml(r.url) + '" target="_blank" rel="noopener noreferrer" title="Open link">↗</a>' : '')
+        + '<button type="button" class="res-del" data-res-del="' + r.id + '" title="Remove resource">✕</button></div></div>';
+    }).join('') : '<div class="wd-empty">No material yet for this subject.</div>';
+    return '<div class="res-subject">'
+      + '<div class="res-subject-head"><div class="res-subject-ico">' + (icons[sub] || '◆') + '</div>'
+      + '<div class="res-subject-info"><div class="res-subject-name">' + escapeHtml(sub) + '</div><div class="res-subject-meta">' + items.length + ' item' + (items.length === 1 ? '' : 's') + (custom ? ' · custom subject' : '') + '</div></div>'
+      + (custom ? '<button type="button" class="pdel" data-res-subject-del="' + escapeHtml(sub) + '" title="Delete subject and its resources">✕</button>' : '') + '</div>'
+      + '<div class="res-list">' + body + '</div>'
+      + '<button type="button" class="res-add" data-res-add="' + escapeHtml(sub) + '">＋ Add link or file</button>'
+      + '</div>';
+  }).join('') + '</div>';
+}
+
+function addTodoFromInput(){
+  const inp = document.getElementById('todoInput');
+  const text = (inp.value || '').trim();
+  if(!text){ toast('✎', 'Task is empty', 'Type what you need to get done first.'); if(inp) inp.focus(); return; }
+  const priority = document.getElementById('todoPriorityInput').value || 'medium';
+  const status = document.getElementById('todoStatusInput').value || 'todo';
+  state.todos = state.todos || [];
+  state.todos.push({ id: uid('td'), text: text.slice(0, 160), priority: priority, status: status, createdAt: Date.now(), completedAt: status === 'done' ? Date.now() : null });
+  inp.value = '';
+  saveState(); renderPlanner();
+  toast('✓', 'Task added', text.slice(0, 60));
+}
+function addWeekTask(dayIdx){
+  const inp = document.querySelector('[data-week-add="' + dayIdx + '"]');
+  if(!inp) return;
+  const text = (inp.value || '').trim();
+  if(!text){ toast('✎', 'Task is empty', 'Type something to add to ' + WEEK_DAYS[dayIdx] + '.'); inp.focus(); return; }
+  const map = scheduleDrafts();
+  if(!state.weekPlan[dayIdx]) state.weekPlan[dayIdx] = { note:'', tasks:[] };
+  state.weekPlan[dayIdx].tasks.push({ id: uid('wk'), text: text.slice(0, 160), done: false, createdAt: Date.now() });
+  map['add' + dayIdx] = '';
+  _drafts.week = map;
+  _clearedAdds['add' + dayIdx] = true;
+  saveState();
+  renderPlanner({ preserve:true });
+  const nf = document.querySelector('[data-week-add="' + dayIdx + '"]');
+  if(nf) nf.focus();
+}
+function addResourceSubject(){
+  const inp = document.getElementById('resSubjectInput');
+  const name = (inp.value || '').trim().slice(0, 40);
+  if(!name){ toast('✎', 'Name required', 'Give the subject a name first.'); inp.focus(); return; }
+  if(allResourceSubjects().some(s => s.toLowerCase() === name.toLowerCase())){ toast('!', 'Subject exists', '"' + name + '" is already in your planner.'); inp.value = ''; return; }
+  state.resourceSubjects = state.resourceSubjects || [];
+  state.resourceSubjects.push(name);
+  inp.value = '';
+  saveState(); renderPlanner();
+  toast('◈', 'Subject added', name + ' · ready for links and files');
+}
+function deleteResourceSubject(name){
+  const items = (state.resources || []).filter(r => r.subject === name);
+  const msg = items.length
+    ? 'Delete "' + name + '" and its ' + items.length + ' saved item' + (items.length === 1 ? '' : 's') + '? This cannot be undone.'
+    : 'Remove the subject "' + name + '"?';
+  if(!confirm(msg)) return;
+  state.resourceSubjects = (state.resourceSubjects || []).filter(s => s !== name);
+  if(items.length) state.resources = (state.resources || []).filter(r => r.subject !== name);
+  saveState(); renderPlanner();
+  toast('✕', 'Subject deleted', name);
+}
+function openResourceModal(subject){
+  plannerUI.modalSubject = subject;
+  plannerUI.modalKind = 'link';
+  plannerUI.modalFile = null;
+  const t = document.getElementById('resourceModalTitle');
+  const s = document.getElementById('resourceModalSub');
+  if(t) t.textContent = 'Add Resource · ' + subject;
+  if(s) s.textContent = 'Attach a link or a file to "' + subject + '".';
+  const n = document.getElementById('resNameInput'); if(n) n.value = '';
+  const u = document.getElementById('resUrlInput'); if(u) u.value = '';
+  const f = document.getElementById('resFileInput'); if(f) f.value = '';
+  const meta = document.getElementById('resFileMeta'); if(meta) meta.remove();
+  setResourceModalKind('link');
+  const bd = document.getElementById('resourceBackdrop');
+  if(bd) bd.classList.add('open');
+  setTimeout(() => { if(n) n.focus(); }, 60);
+}
+function closeResourceModal(){ const bd = document.getElementById('resourceBackdrop'); if(bd) bd.classList.remove('open'); }
+function setResourceModalKind(kind){
+  plannerUI.modalKind = kind;
+  const linkTab = document.getElementById('resKindTabLink');
+  const fileTab = document.getElementById('resKindTabFile');
+  if(linkTab) linkTab.classList.toggle('active', kind === 'link');
+  if(fileTab) fileTab.classList.toggle('active', kind === 'file');
+  const lf = document.getElementById('resLinkFields'); if(lf) lf.style.display = kind === 'link' ? 'block' : 'none';
+  const ff = document.getElementById('resFileFields'); if(ff) ff.style.display = kind === 'file' ? 'block' : 'none';
+}
+function saveResourceFromModal(){
+  const subject = plannerUI.modalSubject;
+  if(!subject) return;
+  const nameRaw = (document.getElementById('resNameInput').value || '').trim();
+  state.resources = state.resources || [];
+  if(plannerUI.modalKind === 'link'){
+    const url = normUrl(document.getElementById('resUrlInput').value || '');
+    if(!url){ toast('⚠', 'Link not valid', 'Paste a full web address, e.g. https://…'); document.getElementById('resUrlInput').focus(); return; }
+    state.resources.push({ id: uid('rs'), subject: subject, name: (nameRaw || shortHost(url) || 'Resource').slice(0, 120), kind:'link', url: url, fileName:'', fileSize:0, fileType:'', data:'', createdAt: Date.now() });
+  } else {
+    const f = plannerUI.modalFile;
+    if(!f){ toast('⚠', 'No file chosen', 'Pick a file to attach.'); document.getElementById('resFileInput').focus(); return; }
+    state.resources.push({ id: uid('rs'), subject: subject, name: (nameRaw || f.name || 'Attachment').slice(0, 120), kind:'file', url:'', fileName:(f.name || 'file').slice(0, 160), fileSize:f.size || 0, fileType:(f.type || '').slice(0, 120), data:f.data || '', createdAt: Date.now() });
+  }
+  closeResourceModal();
+  saveState(); renderPlanner();
+  toast('◈', 'Resource saved', subject + ' · ' + (nameRaw || (plannerUI.modalKind === 'link' ? 'link' : 'file')));
+}
+function readFileIntoResourceModal(){
+  const inp = document.getElementById('resFileInput');
+  const old = document.getElementById('resFileMeta');
+  if(old) old.remove();
+  if(!inp || !inp.files || !inp.files[0]){ plannerUI.modalFile = null; return; }
+  const f = inp.files[0];
+  const meta = document.createElement('div');
+  meta.id = 'resFileMeta';
+  meta.className = 'res-file-meta';
+  if(f.size > 2 * 1024 * 1024){
+    plannerUI.modalFile = { name:f.name, size:f.size, type:f.type, data:'' };
+    meta.textContent = fileSizeText(f.size) + ' · too large to store — attached for this session only (add a link for anything permanent).';
+  } else {
+    meta.textContent = fileSizeText(f.size) + ' · reading…';
+    const rd = new FileReader();
+    rd.onload = () => {
+      plannerUI.modalFile = { name:f.name, size:f.size, type:f.type, data:String(rd.result || '') };
+      meta.textContent = fileSizeText(f.size) + ' · ready to attach';
+    };
+    rd.onerror = () => { plannerUI.modalFile = { name:f.name, size:f.size, type:f.type, data:'' }; meta.textContent = fileSizeText(f.size) + ' · could not read file contents'; };
+    try{ rd.readAsDataURL(f); }catch(e){ plannerUI.modalFile = { name:f.name, size:f.size, type:f.type, data:'' }; meta.textContent = fileSizeText(f.size) + ' · could not read file contents'; }
+  }
+  const field = document.getElementById('resFileFields');
+  if(field) field.appendChild(meta);
+}
+
+function startWeekEdit(dayIdx, taskId){
+  const node = document.querySelector('[data-week-title="' + dayIdx + '|' + taskId + '"]');
+  if(!node || node.isContentEditable) return;
+  const day = state.weekPlan[dayIdx];
+  const task = day && day.tasks.filter(t => t.id === taskId)[0];
+  if(!task) return;
+  node.setAttribute('contenteditable', 'plaintext-only');
+  node.dataset.original = task.text;
+  _weekEditing = true;
+  try{
+    const r = document.createRange(); r.selectNodeContents(node);
+    const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+  }catch(e){}
+  node.addEventListener('keydown', e => {
+    if(e.key === 'Enter'){ e.preventDefault(); node.blur(); }
+    else if(e.key === 'Escape'){ e.preventDefault(); node.textContent = node.dataset.original; node.blur(); }
+  });
+  node.addEventListener('blur', () => {
+    node.removeAttribute('contenteditable');
+    _weekEditing = false;
+    const txt = (node.textContent || '').trim().slice(0, 160);
+    if(!txt){ task.text = node.dataset.original; }
+    else { task.text = txt; saveState(); }
+    renderPlanner();
+  }, { once:true });
+}
+function saveWeekNote(dayIdx, value){
+  if(!state.weekPlan[dayIdx]) state.weekPlan[dayIdx] = { note:'', tasks:[] };
+  const day = state.weekPlan[dayIdx];
+  const v = String(value == null ? '' : value).trim().slice(0, 300);
+  if(day.note === v) return;
+  day.note = v;
+  saveState();
+  const ta = document.querySelector('[data-week-note="' + dayIdx + '"]');
+  if(ta) ta.dataset.weekBound = '1';
+}
+function clearWeekDone(){
+  const e = plannerEntries();
+  if(!e.done){ toast('↺', 'Nothing to uncheck', 'No done tasks in the week.'); return; }
+  WEEK_DAYS.forEach((n, i) => { if(state.weekPlan[i]) state.weekPlan[i].tasks.forEach(t => { t.done = false; }); });
+  saveState(); renderPlanner();
+  toast('↺', 'Week cleared', e.done + ' task' + (e.done === 1 ? '' : 's') + ' unchecked · tasks kept');
+}
+
+let _noteTimer = null;
+function plannerStaticInit(){
+  const view = document.getElementById('view-planner');
+
+  view.addEventListener('click', e => {
+    const t = e.target;
+    if(!t || !t.closest) return;
+
+    const tabBtn = t.closest('[data-planner-tab]');
+    if(tabBtn){ setPlannerTab(tabBtn.dataset.plannerTab, { restore: tabBtn.dataset.plannerTab === 'todo' ? '#todoInput' : (tabBtn.dataset.plannerTab === 'resources' ? '#resSubjectInput' : null) }); return; }
+
+    const filterBtn = t.closest('[data-todo-filter]');
+    if(filterBtn){ setTodoFilter(filterBtn.dataset.todoFilter); return; }
+
+    const actBtn = t.closest('[data-p-action]');
+    if(actBtn){
+      const a = actBtn.dataset.pAction;
+      if(a === 'todo-clear-done'){
+        const c = todoCounts();
+        if(!c.done){ toast('↺', 'Nothing to uncheck', 'No tasks are marked done.'); return; }
+        (state.todos || []).forEach(td => { if(td.status === 'done'){ td.status = 'todo'; td.completedAt = null; } });
+        saveState(); renderPlanner();
+        toast('↺', 'Checkboxes cleared', c.done + ' task' + (c.done === 1 ? '' : 's') + ' back to To Do');
+      } else if(a === 'week-clear-done'){
+        clearWeekDone();
+      } else if(a === 'focus-res-subject-input'){
+        const inp = document.getElementById('resSubjectInput');
+        if(state.plannerTab !== 'resources') setPlannerTab('resources', { restore:'#resSubjectInput' });
+        else if(inp){ inp.focus(); }
+      }
+      return;
+    }
+
+    const resAdd = t.closest('[data-res-add]');
+    if(resAdd){ openResourceModal(resAdd.dataset.resAdd); return; }
+
+    const resDelSub = t.closest('[data-res-subject-del]');
+    if(resDelSub){ deleteResourceSubject(resDelSub.dataset.resSubjectDel); return; }
+
+    const resDel = t.closest('[data-res-del]');
+    if(resDel){
+      const id = resDel.dataset.resDel;
+      const item = (state.resources || []).filter(r => r.id === id)[0];
+      if(item && confirm('Remove "' + item.name + '" from ' + item.subject + '?')){
+        state.resources = state.resources.filter(r => r.id !== id);
+        saveState(); renderPlanner();
+        toast('✕', 'Resource removed', item.name);
+      }
+      return;
+    }
+    const wdDel = t.closest('[data-week-del]');
+    if(wdDel){
+      const p = wdDel.dataset.weekDel.split('|'), d = Number(p[0]), id = p[1];
+      if(state.weekPlan[d]) state.weekPlan[d].tasks = state.weekPlan[d].tasks.filter(x => x.id !== id);
+      saveState(); renderPlanner();
+      return;
+    }
+    const wdAdd = t.closest('[data-week-addbtn]');
+    if(wdAdd){ addWeekTask(Number(wdAdd.dataset.weekAddbtn)); return; }
+
+    const tdDel = t.closest('[data-todo-del]');
+    if(tdDel){
+      const id = tdDel.dataset.todoDel;
+      const task = (state.todos || []).filter(x => x.id === id)[0];
+      if(task && confirm('Delete this task?\n\n"' + task.text + '"')){
+        state.todos = state.todos.filter(x => x.id !== id);
+        saveState(); renderPlanner();
+        toast('✕', 'Task deleted', task.text.slice(0, 60));
+      }
+      return;
+    }
+    const wdTitle = t.closest('[data-week-title]');
+    if(wdTitle){ const p = wdTitle.dataset.weekTitle.split('|'); startWeekEdit(Number(p[0]), p[1]); return; }
+
+    const wdFocus = t.closest('[data-week-focus]');
+    if(wdFocus){
+      const n = Number(wdFocus.dataset.weekFocus);
+      const ta = document.querySelector('[data-week-note="' + n + '"]');
+      if(ta) ta.focus();
+      return;
+    }
+  });
+
+  view.addEventListener('change', e => {
+    const chk = e.target.closest ? e.target.closest('[data-todo-check]') : null;
+    if(chk){
+      const id = chk.dataset.todoCheck;
+      const task = (state.todos || []).filter(x => x.id === id)[0];
+      if(task){
+        task.status = chk.checked ? 'done' : 'todo';
+        task.completedAt = chk.checked ? Date.now() : null;
+        if(chk.checked){
+          const p = plannerPayout(PLANNER_REWARDS.todoTask);
+          plannerAward(p, 'Task complete', task.text.slice(0, 50));
+        } else { saveState(); renderPlanner(); }
+      }
+      return;
+    }
+    const wchk = e.target.closest ? e.target.closest('[data-week-check]') : null;
+    if(wchk){
+      const p = wchk.dataset.weekCheck.split('|'), d = Number(p[0]), id = p[1];
+      const day = state.weekPlan[d];
+      const task = day ? day.tasks.filter(x => x.id === id)[0] : null;
+      if(task){
+        task.done = wchk.checked;
+        if(wchk.checked){
+          const pay = plannerPayout(PLANNER_REWARDS.weekTask);
+          if(weekFullyDone()){
+            const wc = plannerPayout(PLANNER_REWARDS.weekComplete);
+            pay.coins += wc.coins; pay.tokens += wc.tokens; pay.xp += wc.xp;
+            plannerAward(pay, '🏆 Week complete!', 'Every task done — huge work');
+            return;
+          }
+          if(day.tasks.length && day.tasks.every(t => t.done)){
+            const dc = plannerPayout(PLANNER_REWARDS.dayComplete);
+            pay.coins += dc.coins; pay.tokens += dc.tokens; pay.xp += dc.xp;
+            plannerAward(pay, '✓ ' + WEEK_DAYS[d] + ' complete!', 'Every task of the day done');
+            return;
+          }
+          plannerAward(pay, 'Task complete', WEEK_DAYS[d] + ' · ' + task.text.slice(0, 40));
+        } else { saveState(); renderPlanner(); }
+      }
+      return;
+    }
+    const sel = e.target.closest ? e.target.closest('[data-todo-status]') : null;
+    if(sel){
+      const id = sel.dataset.todoStatus;
+      const task = (state.todos || []).filter(x => x.id === id)[0];
+      if(task){
+        const wasDone = task.status === 'done';
+        task.status = sel.value;
+        task.completedAt = sel.value === 'done' ? Date.now() : null;
+        if(!wasDone && sel.value === 'done'){
+          plannerAward(plannerPayout(PLANNER_REWARDS.todoTask), 'Task complete', task.text.slice(0, 50));
+        } else {
+          saveState(); renderPlanner();
+          toast('◉', 'Status updated', STATUS_LABEL[sel.value]);
+        }
+      } else { renderPlanner(); }
+      return;
+    }
+    const fl = e.target.closest ? e.target.closest('#resFileInput') : null;
+    if(fl){ readFileIntoResourceModal(); return; }
+  });
+
+  view.addEventListener('input', e => {
+    if(e.target.matches && e.target.matches('[data-week-note]')){
+      const d = Number(e.target.dataset.weekNote);
+      clearTimeout(_noteTimer);
+      _noteTimer = setTimeout(() => saveWeekNote(d, e.target.value), 650);
+    }
+  });
+
+  view.addEventListener('keydown', e => {
+    if(e.target.id === 'todoInput' && e.key === 'Enter'){ e.preventDefault(); addTodoFromInput(); return; }
+    if(e.target.id === 'resSubjectInput' && e.key === 'Enter'){ e.preventDefault(); addResourceSubject(); return; }
+    if(e.target.matches && e.target.matches('[data-week-add]') && e.key === 'Enter'){
+      e.preventDefault(); addWeekTask(Number(e.target.dataset.weekAdd));
+    }
+  });
+
+  const todoAddBtn = document.getElementById('todoAddBtn');
+  if(todoAddBtn) todoAddBtn.addEventListener('click', addTodoFromInput);
+  const resAddBtn = document.getElementById('resSubjectAddBtn');
+  if(resAddBtn) resAddBtn.addEventListener('click', addResourceSubject);
+
+  const resSave = document.getElementById('resModalSave');
+  if(resSave) resSave.addEventListener('click', saveResourceFromModal);
+  const resCancel = document.getElementById('resModalCancel');
+  if(resCancel) resCancel.addEventListener('click', closeResourceModal);
+  const resBackdrop = document.getElementById('resourceBackdrop');
+  if(resBackdrop) resBackdrop.addEventListener('click', e => { if(e.target === resBackdrop) closeResourceModal(); });
+  const tabLink = document.getElementById('resKindTabLink');
+  if(tabLink) tabLink.addEventListener('click', () => setResourceModalKind('link'));
+  const tabFile = document.getElementById('resKindTabFile');
+  if(tabFile) tabFile.addEventListener('click', () => setResourceModalKind('file'));
+  const resUrl = document.getElementById('resUrlInput');
+  if(resUrl) resUrl.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); saveResourceFromModal(); } });
+  const resName = document.getElementById('resNameInput');
+  if(resName) resName.addEventListener('keydown', e => { if(e.key === 'Enter'){ e.preventDefault(); saveResourceFromModal(); } });
+}
+
+function renderTimerSide(){  const todayKey = ymd(new Date()); const secs = secondsOnDate(todayKey);
   const goalSec = state.settings.dailyGoal*60; const pct = Math.min(100,(secs/goalSec)*100);
   document.getElementById('timerGoalPct').textContent = Math.round(pct)+'%';
   document.getElementById('timerGoalTxt').textContent = formatDuration(secs)+' of '+state.settings.dailyGoal+'m goal';
@@ -3467,7 +4599,7 @@ function renderTimerSide(){
 function renderAll(){
   renderTopbar(); renderDashboard(); renderStats(); renderAchievements();
   renderTimerSide(); renderShop(); renderCompanionShop();
-  renderWheel(); renderProfile(); renderBreaks();
+  renderWheel(); renderProfile(); renderBreaks(); renderPlanner();
   updateGambleBalances(); renderGambleHistory();
   updateGoalDisplayFromState();
   updateAuthUI();
@@ -3475,6 +4607,7 @@ function renderAll(){
 
 const PAGE_META = {
   dashboard:{title:'Dashboard', sub:"Welcome back — let's get focused."},
+  planner:{title:'Planner', sub:'To-do list, weekly schedule and study resources in one place.'},
   timer:{title:'Focus Timer', sub:'Deep work, one session at a time.'},
   gamble:{title:'Gamble', sub:'Roll 3 dice. Bet Over, Under, Even, Odd, or Any Triple.'},
   wheel:{title:'Lucky Wheel', sub:'Spin tokens, win rewards, redeem breaks.'},
@@ -3499,6 +4632,7 @@ document.querySelectorAll('.dock-btn').forEach(btn=>{
     if(v==='profile') renderProfile();
     if(v==='gamble') initGamble();
     if(v==='breaks') renderBreaks();
+    if(v==='planner') renderPlanner();
   });
 });
 document.getElementById('bannerStart').addEventListener('click',()=>{
@@ -3651,6 +4785,7 @@ document.getElementById('accountSyncBtn').addEventListener('click', async ()=>{
   syncTimerTotal();
   updateTimerUI();
   drawWheel();
+  plannerStaticInit();
   renderAll();
   applyTheme('default');
   await bootstrapAuth();
