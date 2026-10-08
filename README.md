@@ -102,7 +102,7 @@ including a regression check that a single completed day can never pay the whole
 
 ## 🌐 Live Demo
 
-**[https://YOUR-USERNAME.github.io/studyflow/](https://YOUR-USERNAME.github.io/studyflow/)**
+**[https://goateddhleminh.github.io/studyflow/](https://YOUR-USERNAME.github.io/studyflow/)**
 
 ## 🛠 Tech Stack
 
